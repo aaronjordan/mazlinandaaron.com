@@ -8,12 +8,14 @@ pipeline {
       }
     }
 
-    stage('build') {
+    stage('diagnostics') {
       when {
          branch pattern: 'jenkins-test', comparator: "REGEXP"
       }
       steps {
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        pwd
+        ls
       }
     }
 
