@@ -25,12 +25,11 @@ pipeline {
       }
     }
 
-#    stage('test') {
-#      steps {
-#        echo 'begin test suite'
-#        input(message: 'Should we deploy the build?', id: '1', ok: 'Yes', submitter: 'null', submitterParameter: 'null')
-#      }
-#    }
+    stage('test') {
+      steps {
+        echo 'begin test suite'
+      }
+    }
 
     stage('deploy') {
       steps {
