@@ -11,7 +11,7 @@ pipeline {
 
     stage('diagnostics') {
       when {
-         branch pattern: 'jenkins-testing', comparator: "REGEXP"
+         branch pattern: 'jenkins*', comparator: "REGEXP"
       }
       steps {
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
