@@ -2,6 +2,7 @@ pipeline {
   agent any
   stages {
     stage('initialize') {
+      when { not { branch 'jenkins-testing' } }
       steps {
         echo 'initialization phase'
         sh 'npm install'
@@ -10,7 +11,7 @@ pipeline {
 
     stage('diagnostics') {
       when {
-         branch pattern: 'jenkins-test', comparator: "REGEXP"
+         branch pattern: 'jenkins-testing', comparator: "REGEXP"
       }
       steps {
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
@@ -20,7 +21,7 @@ pipeline {
     }
 
     stage('build') {
-      when { not { branch 'jenkins-test' } }
+      when { not { branch 'jenkins-testing' } }
       steps {
         echo 'start build'
         sh 'npm run build'
