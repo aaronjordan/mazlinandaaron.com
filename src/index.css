@@ -1,13 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@200;400;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Bitter:wght@200;400;700&family=Great+Vibes&display=swap'); */
+
+@import url("https://use.typekit.net/kbp0dbu.css");
+/*
+adobe-caslon-pro
+leander-script-pro
+adorn-catchwords
+adorn-garland
+adorn-ornaments
+*/
+
+:root {
+  --main-black: rgb(60, 60, 60);
+  --main-white: snow;
+  --window-pink: rgba(255, 176, 188, 0.253);
+  --window-orange: rgba(255, 225, 190, 0.5);
+  --page-min-width: 640px;
+  --page-width: 80%;
+  --page-max-width: 1000px; 
+}
+
 body {
+  background-color: var(--main-white);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-size: 14pt;
+  font-family: 'adobe-caslon-pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body * {
+  box-sizing: border-box;
+  transition: all 0.5s ease;
+}
+
+img {
+  max-width: 100%;
 }

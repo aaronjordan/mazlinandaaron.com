@@ -1,0 +1,59 @@
+@-webkit-keyframes infiniteRotate {    
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+/* Standard syntax */
+@keyframes infiniteRotate {  
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// GLOBAL STYLES
+
+a:visited, a:link{
+  color: inherit;
+}
+
+a:hover {
+  box-shadow: var(--window-pink) 0 0 0 12px;
+  background-color: var(--window-pink);
+}
+
+main {
+  min-height: 50vh;
+}
+
+.App {
+  margin: auto;
+  width: var(--page-width);
+  min-width: var(--page-min-width);
+  max-width: var(--page-max-width);
+  transition: opacity 1.5s ease-in;
+}
+
+.App.show {
+  opacity: 1;
+}
+
+.App.hidden {
+  opacity: 0;
+}
+
+.loading {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading svg {
+  padding: 0;
+  position: relative;
+  -webkit-animation: infiniteRotate 2s linear infinite;
+  animation: infiniteRotate 2s linear infinite;
+}
+
+.listItemHead {
+  font-weight: bold;
+}

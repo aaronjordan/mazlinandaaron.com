@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+
+import Header from './Header';
+import Home from './Home';
+import Footer from './Footer';
+import Upcoming from './Upcoming';
+import './App.scss';
 
 function App() {
+  const [isPageVisible, setIsPageVisible] = useState(false);
+
+  window.addEventListener('load', () => setTimeout(() => setIsPageVisible(true), 800));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="loading" style={{display: (isPageVisible) ? "none" : "flex" }}>
+          <FontAwesomeIcon icon={faCircleNotch} size="3x"/>
+      </div>
+      <div className={"App " + ((isPageVisible) ? "show" : "hidden")}>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/upcoming" component={Upcoming} />
+        </Switch>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

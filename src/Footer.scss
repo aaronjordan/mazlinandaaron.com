@@ -1,0 +1,28 @@
+footer {
+  --footer-height: 90px;
+
+  position: absolute;
+  left: 0;
+  width: 100%;
+  margin-top: 90px;
+  min-height: var(--footer-height);
+  background-color: var(--main-black);
+  color: var(--main-white);
+  box-shadow: rgb(45,45,45) 0 18px 26px -18px inset;
+}
+
+footer .content {
+  margin: auto;
+  width: var(--page-width);
+  max-width: var(--page-max-width);
+  min-width: var(--page-min-width);
+  min-height: var(--footer-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12pt;
+}
+
+footer span {
+  margin-top: 18px;
+}

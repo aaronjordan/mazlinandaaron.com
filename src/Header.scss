@@ -1,0 +1,50 @@
+header {
+  text-align: center;
+  padding: 60px 0 30px;
+  display: block;
+  
+  h1 {
+    font-family: 'leander-script-pro';
+    font-feature-settings: "salt" 1;
+    font-size: 96px;
+    line-height: 1;
+    margin: 48px 0;
+    text-shadow: 0 0 18px var(--window-orange);
+  }
+
+  div {
+    &#left {margin-right: 18px;}
+    &#right {margin-left: 18px;}
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    width: 100%;
+    line-height: 2;
+
+    .nav-padding {
+      flex-grow: 4;
+      height: 1px;
+      background-color: var(--main-black);  
+    }
+
+    li {
+      padding-top: 4px;
+      list-style-type: none;
+      display: inline-block;
+    }
+
+    a {
+      color: var(--main-black);
+      padding: 3px;
+      margin: 3px 18px;
+      
+      &:hover {
+        background-color: var(--window-pink);
+      }
+    }
+  }
+}
