@@ -13,14 +13,13 @@ pipeline {
       when { branch pattern: '^jenkins.*', comparator: "REGEXP" }
       steps {
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh(
-          echo 'running a diagnostic';
-          echo 'pwd writes';
-          pwd;
-          echo 'ls writes';
-          ls;
-          echo "can access env var: ${TEST_VARIABLE}";
-        )
+        echo 'running a diagnostic'
+        echo 'pwd writes'
+        pwd
+        echo 'ls writes'
+        ls
+        echo "can access env var: ${TEST_VARIABLE}";
+        sh "echo ${TEST_VARIABLE}"
       }
     }
 
