@@ -15,9 +15,9 @@ pipeline {
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
         echo 'running a diagnostic'
         echo 'pwd writes'
-        pwd
+        sh 'pwd'
         echo 'ls writes'
-        ls
+        sh 'ls'
         echo "can access env var: ${TEST_VARIABLE}";
         sh "echo ${TEST_VARIABLE}"
       }
