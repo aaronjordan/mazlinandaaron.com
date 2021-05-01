@@ -54,6 +54,8 @@ pipeline {
           when { branch 'stage' }
           steps {
             echo 'deploy to staging'
+            sh "rm -r -v ${DIR_STAGE_MA_COM}*"
+            sh "mv -v build/* ${DIR_STAGE_MA_COM}"
           }
         }
         stage('test-branching') {
