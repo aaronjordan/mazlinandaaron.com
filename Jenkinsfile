@@ -1,5 +1,6 @@
 pipeline {
   agent any
+
   stages {
     stage('initialize') {
       when { not { branch 'jenkins-testing' } }
@@ -10,7 +11,7 @@ pipeline {
     }
 
     stage('diagnostics') {
-      when { branch pattern: '^jenkins.*', comparator: "REGEXP" }
+      when { branch 'jenkins-testing' }
       steps {
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
         echo 'running a diagnostic'
@@ -20,6 +21,8 @@ pipeline {
         sh 'ls'
         echo "can access env var: ${TEST_VARIABLE}";
         sh "echo ${TEST_VARIABLE}"
+        sh "echo 'production: ${DIR_PROD_MA_COM}'"
+        sh "echo 'staging: ${DIR_STAGE_MA_COM}'"
       }
     }
 
