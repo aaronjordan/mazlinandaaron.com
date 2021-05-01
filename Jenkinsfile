@@ -48,6 +48,8 @@ pipeline {
           when { branch 'prod' }
           steps {
             echo 'deploy to production'
+            sh "rm -r -v ${DIR_PROD_MA_COM}*"
+            sh "mv -v build/* ${DIR_PROD_MA_COM}"
           }
         }
         stage('deploy-staging') {
