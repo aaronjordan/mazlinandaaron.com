@@ -10,14 +10,17 @@ pipeline {
     }
 
     stage('diagnostics') {
-      when {
-         branch pattern: '^jenkins.*', comparator: "REGEXP"
-      }
+      when { branch pattern: '^jenkins.*', comparator: "REGEXP" }
       steps {
         echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        echo "To the moon!"
-        sh 'pwd'
-        sh 'ls'
+        sh '''
+          echo 'running a diagnostic'
+          echo 'pwd writes'
+          pwd
+          echo 'ls writes'
+          ls
+          echo 'can access env var: ${TEST_VARIABLE}'
+        '''
       }
     }
 
@@ -36,8 +39,24 @@ pipeline {
     }
 
     stage('deploy') {
-      steps {
-        sh 'pwd; ls;'
+      when { anyOf { branch 'prod'; branch 'stage'; branch 'jenkins-testing' } }
+      failFast true
+      parallel {
+        stage('deploy-production') {
+          steps {
+            echo 'deploy to production'
+          }
+        }
+        stage('deploy-staging') {
+          steps {
+            echo 'deploy to staging'
+          }
+        }
+        stage('test-branching') {
+          steps {
+            echo 'deploy to nowhere please'
+          }
+        }
       }
     }
 
