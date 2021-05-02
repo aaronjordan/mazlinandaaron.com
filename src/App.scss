@@ -14,9 +14,11 @@ a:visited, a:link{
   color: inherit;
 }
 
-a:hover {
-  box-shadow: var(--window-pink) 0 0 0 12px;
-  background-color: var(--window-pink);
+@media only screen and (min-width: 641px) {
+  a:hover {
+    box-shadow: var(--window-pink) 0 0 0 12px;
+    background-color: var(--window-pink);
+  }
 }
 
 main {
@@ -56,4 +58,12 @@ main {
 
 .listItemHead {
   font-weight: bold;
+}
+
+@media only screen and (max-width: 640px) {
+  :root {
+    --page-min-width: 320px;
+    --page-width: 90%;
+    --page-max-width: unset;
+  }
 }
