@@ -13,7 +13,7 @@ adorn-ornaments
 :root {
   --main-black: rgb(60, 60, 60);
   --main-white: snow;
-  --window-pink: rgba(255, 176, 188, 0.253);
+  --window-pink: hsla(120, 45%, 35%, 0.2);
   --window-orange: rgba(255, 225, 190, 0.5);
   --page-min-width: 640px;
   --page-width: 80%;
