@@ -26,7 +26,7 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 18px 0;
-    width: 100%;
+    width: 100vw;
     line-height: 2;
 
     .nav-padding {
@@ -72,7 +72,7 @@ header {
       background-color: var(--main-black);  
     }
     
-    #navExpandIcon:hover {
+    #navExpandIcon:hover, #navExpandSlideIcon:hover {
       cursor: pointer;
     }
     
