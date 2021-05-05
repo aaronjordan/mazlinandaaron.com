@@ -1,0 +1,23 @@
+.flex-border-container {
+  display: flex;
+  align-items: center;  
+  justify-content: space-between;
+  text-align: center;
+  margin: 54px 0 0;
+  width: 100%;
+  line-height: 2;
+
+  .flex-border {
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--main-black);
+
+    &.fb-left {margin-right: 18px;}
+    &.fb-right {margin-left: 18px;}
+  }
+
+  span {
+    font-family: 'kepler-std-display';
+    font-size: 28pt;
+  }
+}
