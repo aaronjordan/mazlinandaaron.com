@@ -25,6 +25,16 @@ main {
   min-height: 50vh;
 }
 
+.center {
+  text-align: center;
+}
+
+.ellipsis {
+  text-align: center;
+  font-kerning: none;
+  letter-spacing: 12px;
+}
+
 .App {
   margin: auto;
   width: var(--page-width);
@@ -65,5 +75,87 @@ main {
     --page-min-width: 320px;
     --page-width: 90%;
     --page-max-width: unset;
+  }
+
+  .countdownComponent {
+    background-color: inherit !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+
+.text-content {
+  // box-shadow: rgba(0,0,0,0.2) 0 3px 9px -3px;
+  border-top: 1px solid var(--main-black);
+  box-sizing: border-box;
+  margin: 72px 0px 48px;
+  padding: 18px 18px;
+  position: relative;
+
+  h4.label {
+    font-family: 'kepler-std-display';
+    font-size: 26pt;
+    text-shadow: 0 0 6px var(--main-grey-trans);
+    display: inline-block;
+    white-space: nowrap;
+    padding: 9px 12px 9px;
+    color: white;
+    position: absolute;
+    top: -86px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  p {
+    margin: 28px 0 12px;
+  }
+}
+
+.maz .label { 
+  background-color: var(--window-orange-opaque); 
+  box-shadow: var(--window-orange-opaque) 0 0 6px -2px;
+}
+.aaron .label { 
+  background-color: var(--window-pink-opaque); 
+  box-shadow: var(--window-pink-opaque) 0 0 6px -2px;
+}
+
+.subtle {
+  color: var(--main-grey);
+  letter-spacing: 2pt;
+  font-size: 12pt;
+}
+
+.countdownComponent {
+  padding: 48px 0 96px;
+  font-size: 32pt;
+  font-family: 'timberline';
+  background-color: white;
+  box-shadow: var(--window-orange-opaque) 0 5px 18px -14px,
+              var(--main-grey) 0px -3px 18px -16px inset;
+  border-radius: 50%;
+  margin: 84px 0;
+  border: 1px solid var(--main-black);
+  
+  :first-child {
+    font-family: 'kepler-std-display';
+    margin-bottom: 0px;
+  }
+
+  :last-child {
+    margin-top: 28px;
+  }
+  
+  p {
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  span {
+    font-family: 'timberline' !important;
+    font-size: 84pt;
+    transform: translate(-9px, 12px);
+    position: relative;
+    display: inline-block;
   }
 }
