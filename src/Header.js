@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
+import Title from './img/title.svg';
 import './Header.scss';
 
 export const Header = () => {
@@ -10,7 +11,9 @@ export const Header = () => {
 
   return (
     <header>
-      <h1>Mazlin & Aaron</h1>
+      <h1>
+        <img src={Title} className="header-title" alt="Mazlin & Aaron"/>
+      </h1>
       <div className={`mobile-controls ${isNavOpen?'open':'closed'}`} >
         <div className="nav-padding" id="left"/>
         <FontAwesomeIcon 
