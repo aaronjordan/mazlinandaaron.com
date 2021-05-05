@@ -6,7 +6,9 @@ export default function Footer() {
   return (
     <footer>
       <div className="content">
-        <span></span>
+        <span>
+          August 1, 2021
+        </span>
         <span>
           Made with love by Aaron.
         </span>

@@ -1,20 +1,28 @@
 header {
   text-align: center;
-  padding: 60px 0 30px;
   display: block;
+  margin-bottom: 28px;
   
   h1 {
     font-family: 'leander-script-pro';
     font-feature-settings: "salt" 1;
     font-size: 96px;
     line-height: 1;
-    margin: 48px 0;
+    margin: 72px 0 24px;
     text-shadow: 0 0 18px var(--window-orange);
+
+    img {
+      width: 75%;
+    }
   }
 
   div {
     &#left {margin-right: 18px;}
     &#right {margin-left: 18px;}
+  }
+
+  div.mobile-controls {
+    display: none;
   }
 
   nav {
@@ -26,7 +34,7 @@ header {
     line-height: 2;
 
     .nav-padding {
-      flex-grow: 4;
+      flex-grow: 1;
       height: 1px;
       background-color: var(--main-black);  
     }
@@ -47,4 +55,93 @@ header {
       }
     }
   }
+}
+
+@media only screen and (max-width: 640px) {
+
+  header {
+
+    div.mobile-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      width: 100%;
+      font-size: 24pt;
+    }
+    
+    .mobile-controls .nav-padding {
+      flex-grow: 1;
+      height: 1px;
+      background-color: var(--main-black);  
+    }
+    
+    #navExpandIcon:hover, #navExpandSlideIcon:hover {
+      cursor: pointer;
+    }
+    
+    .mobile-controls.closed #navExpandIcon {
+      transform: rotate(0deg);
+    }
+    
+    .mobile-controls.open #navExpandIcon {
+      transform: rotate(45deg);
+    }
+
+    .mobile-controls.closed #navExpandSlideIcon {
+      transform: rotate(0deg);
+      right: -36px;
+    }
+    
+    .mobile-controls.open #navExpandSlideIcon {
+      transform: rotate(45deg);
+    }
+
+    #navExpandSlideIcon {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 22;
+    }
+    
+    nav {
+      position: fixed;
+    }
+    
+    nav .nav-padding {
+      display: none;
+    }
+  
+    nav * {
+      display: block;
+      width: 100vw;
+      background-color: whitesmoke;
+      box-shadow: whitesmoke 0 0 12px -3px;
+    }
+
+    nav a:hover {
+      background-color: #f5f5f5;
+      box-shadow: var(--window-pink) 0 0 12px 0px;
+      z-index: 25;
+    }
+
+    nav.open {
+      z-index: 10;
+      left: 0;
+      top: 0;
+      opacity: 1;
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-image: linear-gradient(0deg, rgba(220,220,220, 0.85), rgba(235, 235, 235, 0.85));
+    }
+
+    nav.closed {
+      transition: opacity 0s;
+      opacity: 0;
+    }
+
+  }
+
 }
