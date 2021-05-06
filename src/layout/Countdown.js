@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 const getTime = () => (new Date()).valueOf();
 const msToDayStep = 1000 * 3600 * 24;
 
 export default function Countdown(props) {
-  const [now, setNow] = useState(getTime());
+  const now = getTime();
   const futureTime = 1627794000000;
 
   const generateDays = () => Math.ceil((futureTime - now) / msToDayStep);
