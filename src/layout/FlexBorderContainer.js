@@ -3,7 +3,7 @@ import React from 'react';
 import './FlexBorderContainer.scss';
 
 export default function FlexBorderContainer(props) {
-  const rootClass = 'flex-border-container' + ' ' + (props.customClassName || '');
+  const rootClass = `flex-border-container ${props.customClassName || ''}`;
   return React.createElement(
     props.as || 'div',
     {
