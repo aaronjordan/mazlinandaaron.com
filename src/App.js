@@ -8,6 +8,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Home from './routes/Home';
 import Upcoming from './routes/Upcoming';
+import Photos from './routes/Photos';
 import './App.scss';
 
 export const ImageContext = React.createContext(null);
@@ -29,6 +30,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/upcoming" component={Upcoming} />
+          <Route path="/photos" component={Photos} />
         </Switch>
         </ImageContext.Provider>
         <Footer />
