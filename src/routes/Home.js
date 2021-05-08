@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <main className="home">
       <div className="img-filter" />
-      <AdaptiveImg label={'butler1'} alt="Mazlin and Aaron" className="hero"/>
+      <AdaptiveImg label={'butler1'} alt="Mazlin and Aaron" className="hero" />
       <Countdown type="fancy"/>
       <p className="center">Thank you to Hinge and Taylor Swift for making all of this happen. Keep reading to find out more →</p>
       <FlexBorderContainer>Mazlin’s story</FlexBorderContainer>

@@ -71,11 +71,6 @@ main {
 }
 
 @media only screen and (max-width: 640px) {
-  :root {
-    --page-min-width: 320px;
-    --page-width: 90%;
-    --page-max-width: unset;
-  }
 
   .countdownComponent {
     background-color: inherit !important;

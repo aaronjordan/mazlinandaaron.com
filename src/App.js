@@ -19,7 +19,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ImageLoader library={imageState[0]} setLibrary={imageState[1]} onInitialLoadComplete={makePageVisible}/>
+      <ImageLoader library={imageState} onInitialLoadComplete={makePageVisible}/>
       <div className="loading" style={{display: (isPageVisible) ? "none" : "flex" }}>
           <FontAwesomeIcon icon={faCircleNotch} size="3x"/>
       </div>

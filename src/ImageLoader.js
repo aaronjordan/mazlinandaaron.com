@@ -43,8 +43,7 @@ const getImageDictionary = () => {
  */
 export const ImageLoader = props => {
   const { onInitialLoadComplete } = props;
-  const library = props.library;
-  const setLibrary = props.setLibrary;
+  const [library, setLibrary] = props.library;
 
   const updateRef = useRef(null);
 
@@ -132,7 +131,7 @@ export const ImageLoader = props => {
               writable: true
             });
             Object.defineProperty(keyedCollection.qualityTable, key, {
-              value: 'lq',
+              value: AUTO_LOAD_TYPE,
               enumerable: true,
               writable: true
             });
