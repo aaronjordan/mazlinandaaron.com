@@ -6,7 +6,9 @@ const AdaptiveImg = props => {
   const ImageLibrary = useContext(ImageContext);
   const [imgBlob, setImgBlob] = useState(ImageLibrary[props.label]);
   const [imgQuality, setImgQuality] = useState(ImageLibrary.qualityTable?.[props.label] || QUALITY_GRADES[0]);
-  const targetQuality = props.maxQuality || QUALITY_GRADES[1];
+  const targetQuality = Number.isInteger(Number(props.maxQuality)) ? 
+    QUALITY_GRADES[Math.min(props.maxQuality, QUALITY_GRADES.length-1)] : 
+    QUALITY_GRADES[1];
 
   useEffect(() => {
     setImgBlob(img => img !== ImageLibrary[props.label] ? ImageLibrary[props.label] : img);
