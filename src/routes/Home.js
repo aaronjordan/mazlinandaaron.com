@@ -1,16 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Countdown from './Countdown';
-import FlexBorderContainer from './FlexBorderContainer';
+import Countdown from '../layout/Countdown';
+import FlexBorderContainer from '../layout/FlexBorderContainer';
+import AdaptiveImg from '../AdaptiveImg';
 
 import './Home.scss';
 
 export const Home = () => {
-  const BASE = 'https://mazlinandaaron.com';
   return (
     <main className="home">
       <div className="img-filter" />
-      <img src={`${BASE}/media/image/butler1?q=mq`} alt="Mazlin and Aaron" className="hero"/>
+      <AdaptiveImg label={'butler1'} alt="Mazlin and Aaron" className="hero" />
       <Countdown type="fancy"/>
       <p className="center">Thank you to Hinge and Taylor Swift for making all of this happen. Keep reading to find out more →</p>
       <FlexBorderContainer>Mazlin’s story</FlexBorderContainer>

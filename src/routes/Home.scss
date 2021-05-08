@@ -1,0 +1,29 @@
+.home {
+  img {
+    opacity: 1;
+    transition: filter 1s ease opacity 1s ease;
+    clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+  }
+
+  img.lq {
+    filter: blur(18px) brightness(1.25) contrast(0.95) !important;
+    opacity: 0.6;
+  }
+
+  img.hero {
+    width: 100%;
+    min-height: calc(min(30vw, 660px));
+    position: relative;
+    filter: blur(0px) brightness(1.25) contrast(0.95);
+  }
+  
+  .img-filter {
+    background-image: linear-gradient(0deg, rgba(255, 225, 190, 0), var(--window-orange));
+    opacity: 0.85;
+    position: absolute;
+    width: var(--page-width);
+    max-width: var(--page-max-width);
+    height: 15vw;
+    z-index: 2;
+  }
+}

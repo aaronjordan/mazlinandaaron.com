@@ -26,6 +26,14 @@ timberline
   --page-max-width: 1000px; 
 }
 
+@media only screen and (max-width: 640px) {
+  :root {
+    --page-min-width: 320px;
+    --page-width: 90%;
+    --page-max-width: unset;
+  }
+}
+
 body {
   background-color: var(--main-white);
   margin: 0;
