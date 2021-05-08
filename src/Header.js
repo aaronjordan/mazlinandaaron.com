@@ -1,9 +1,8 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import Title from './img/title.svg';
+import plusIcon from './img/ajPlusIcon.svg';
 import './Header.scss';
 
 export const Header = () => {
@@ -16,18 +15,20 @@ export const Header = () => {
       </h1>
       <div className={`mobile-controls ${isNavOpen?'open':'closed'}`} >
         <div className="nav-padding" id="left"/>
-        <FontAwesomeIcon 
-          icon={faPlusCircle} 
+        <img 
+          src={plusIcon} 
+          alt="expand navigation icon"
+          className="nav-interaction-svg"
           id="navExpandIcon"
-          size="1x"
           onClick={() => setIsNavOpen(x => !x)}
-        />
-        <FontAwesomeIcon 
-          icon={faPlusCircle} 
+          />
+        <img 
+          src={plusIcon} 
+          alt="expand navigation icon"
+          className="nav-interaction-svg"
           id="navExpandSlideIcon"
-          size="1x"
           onClick={() => setIsNavOpen(x => !x)}
-        />
+          />
         <div className="nav-padding" id="right"/>
       </div>
       <nav 
@@ -37,6 +38,7 @@ export const Header = () => {
         <div className="nav-padding" id="left"/>
         <Link to="/"><li>Home</li></Link>
         <Link to="/upcoming"><li>Upcoming</li></Link>
+        {/* <Link to="/photos"><li>Photos</li></Link> */}
         <div className="nav-padding" id="right"/>
       </nav>
     </header>

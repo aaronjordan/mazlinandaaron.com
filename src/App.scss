@@ -70,15 +70,6 @@ main {
   font-weight: bold;
 }
 
-@media only screen and (max-width: 640px) {
-
-  .countdownComponent {
-    background-color: inherit !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-}
-
 .text-content {
   box-sizing: border-box;
   margin: 12px 0px 48px;
