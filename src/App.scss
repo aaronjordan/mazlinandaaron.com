@@ -25,6 +25,18 @@ main {
   min-height: 50vh;
 }
 
+h1 {
+  font-family: 'timberline';
+}
+
+.close {
+  font-size: 64pt;
+  display: block;
+  text-align: center;
+  margin: 0;
+  padding-right: 3%;
+}
+
 .center {
   text-align: center;
 }
@@ -129,3 +141,4 @@ main {
     display: inline-block;
   }
 }
+

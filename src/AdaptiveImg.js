@@ -2,6 +2,13 @@ import React, {useEffect, useState, useContext} from 'react';
 import {QUALITY_GRADES} from './ImageLoader';
 import {ImageContext} from './App';
 
+/**
+ * Adaptive image element. Accepts props:
+ * label<string>: the image label on server
+ * maxQuality<number>: an integer to specify the maximum quality to use for the specified label. Default is 1.
+ * alt<string>: alt text to use for the generated element
+ * className<string>:an additional className to specify for the generated element
+ */
 const AdaptiveImg = props => {
   const ImageLibrary = useContext(ImageContext);
   const [imgBlob, setImgBlob] = useState(ImageLibrary[props.label]);

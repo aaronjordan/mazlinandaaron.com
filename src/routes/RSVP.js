@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Photos() {
+export default function RSVP() {
   return (
     <div>
-      look at that awww
+      rsvp tab here
     </div>
   )
 }
