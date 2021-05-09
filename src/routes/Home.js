@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <main className="home">
       <div className="img-filter" />
-      <AdaptiveImg label={'butler1'} alt="Mazlin and Aaron" className="hero" />
+      <AdaptiveImg label="butler1" alt="Mazlin and Aaron" className="hero" />
       <Countdown type="fancy"/>
       <p className="center">Thank you to Hinge and Taylor Swift for making all of this happen. Keep reading to find out more →</p>
       <FlexBorderContainer>Mazlin’s story</FlexBorderContainer>
@@ -44,7 +44,7 @@ export const Home = () => {
         <p>Today, I’m counting down the <Countdown type="basic" /> days, excited for August and everything after, certain beyond any doubt that Mazlin Massey is the someone that I’ve been hoping for for a long time.</p>
         <p className="ellipsis">• • •</p>
       </div>
-      <p>Head over to the <Link to="/upcoming">Upcoming tab</Link> for more infomation about what's coming on this website as well as our wedding plans.</p>
+      <h1 className="close">M + A</h1>
     </main>
   );
 };

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Photos() {
+export default function Registry() {
   return (
     <div>
-      look at that awww
+      oops all target
     </div>
   )
 }

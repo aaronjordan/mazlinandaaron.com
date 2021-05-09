@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Photos() {
+export default function Livestream() {
   return (
     <div>
-      look at that awww
+      livestream go here
     </div>
   )
 }
