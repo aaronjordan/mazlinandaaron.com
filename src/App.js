@@ -18,6 +18,8 @@ function App() {
   const makePageVisible = useCallback(() => setIsPageVisible(true), [setIsPageVisible]);
   const imageState = useState({});
 
+  setTimeout(() => makePageVisible(), 8000); // make page visible after 8s even if image are loading
+
   return (
     <BrowserRouter>
       <ImageLoader library={imageState} onInitialLoadComplete={makePageVisible}/>
