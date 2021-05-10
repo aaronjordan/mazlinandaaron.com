@@ -122,7 +122,7 @@ export const ImageLoader = props => {
     // if images list was returned, load low-quality for each symbol.
     if(Object.keys(dict).length > 0) {
       const imgRequests = Object.entries(dict).map(([key, val]) => {
-        const thisReq = val[AUTO_LOAD_TYPE] && axios.get(val[AUTO_LOAD_TYPE], {...ALLOW_CORS, responseType: 'blob'});
+        const thisReq = val[AUTO_LOAD_TYPE] && axios.get(val[AUTO_LOAD_TYPE], {...ALLOW_CORS, responseType: 'blob', validateStatus: null});
         thisReq?.then(res => {
           if(res.data) {
             Object.defineProperty(keyedCollection, key, {
@@ -142,7 +142,7 @@ export const ImageLoader = props => {
         return thisReq;
       });
 
-      await Promise.allSettled(imgRequests);
+      await Promise.all(imgRequests);
       setLibrary(keyedCollection);
     }
   }, [setLibrary]);
