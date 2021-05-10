@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import Countdown from '../layout/Countdown';
 import FlexBorderContainer from '../layout/FlexBorderContainer';
 import AdaptiveImg from '../AdaptiveImg';
@@ -13,7 +12,7 @@ export const Home = () => {
       <AdaptiveImg label="butler1" alt="Mazlin and Aaron" className="hero" />
       <Countdown type="fancy"/>
       <p className="center">Thank you to Hinge and Taylor Swift for making all of this happen. Keep reading to find out more →</p>
-      <FlexBorderContainer>Mazlin’s story</FlexBorderContainer>
+      <FlexBorderContainer><h4>Mazlin’s story</h4></FlexBorderContainer>
       <div className="text-content maz">
         <p>It’s crazy to think back to how we first met because it was on a dating app in the middle of the pandemic. I had been living in Austin only for a few months and had made some amazing connections at a local church. To be completely honest, I hated dating apps and only joined because my friends said I should.</p>
         <p>Much to my surprise, I found this cute boy on Hinge who loves Jesus, Taylor Swift, and Texas (and yes, all in that order) who had just moved to Austin from South Carolina. We went on one date and both knew we found something special.</p>
@@ -30,7 +29,7 @@ export const Home = () => {
         <p>What a night! I think everyone can see who the more romantic one is between the two of us!</p>
         <p className="ellipsis">• • •</p>
       </div>
-      <FlexBorderContainer>Aaron's story</FlexBorderContainer>
+      <FlexBorderContainer><h4>Aaron's story</h4></FlexBorderContainer>
       <div className="text-content aaron">
         <p>On that night — our first date, I was certain I was getting to know someone extraordinary. I had never been so comfortable on a date. A couple days afterward, just days into our relationship, I went to Barnes and Noble and picked up a new journal. At that moment, I definitively knew that if the real Mazlin was remotely close in character to the person I believed she was based on our limited interactions, I would want to keep this relationship, maintaining and building upon it for a long time. I began writing in the journal that night, giving a rundown of what my first impressions were when we met at Mozart’s Coffee. Over the course of about 50 letters written over five months, each one giving some new perspective of my world as it changed, I fell deeply and passionately in love with Mazlin Massey. </p>
         <p>As I look at it, those letters were really where the proposal story began. I knew after just a couple weeks of writing that I wanted to give that journal to Mazlin before we were engaged. Within its pages and frozen in time are so many moments, ranging from our first “I love you” to stories from my past to a lengthy and heartwarming conclusion that I was barely able to write without crying. When I gave her the journal, she removed it from its box and said something to the effect of, “Oh wow, it’s just like your journal!”, which I found quite funny at the time. Upon opening it, noticing I had written on one of the first pages, then flipping quickly through and seeing I had written on very many of the pages, she realized what was actually happening. Mazlin was a delighted mess for some time afterward.  While I adore her engagement ring, the handoff of the journal about a month before was (for me at least) the most meaningful gift.</p>
@@ -44,7 +43,7 @@ export const Home = () => {
         <p>Today, I’m counting down the <Countdown type="basic" /> days, excited for August and everything after, certain beyond any doubt that Mazlin Massey is the someone that I’ve been hoping for for a long time.</p>
         <p className="ellipsis">• • •</p>
       </div>
-      <h1 className="close">M + A</h1>
+      <h1 className="signature">M + A</h1>
     </main>
   );
 };

@@ -32,7 +32,7 @@ const AdaptiveImg = props => {
       }
   }, [imgQuality, props.label, ImageLibrary, targetQuality]);
 
-  return imgBlob ? <img src={imgBlob} alt={props.alt} className={`${imgQuality} ${props.className}`} /> : <></>;
+  return imgBlob ? <img src={imgBlob} alt={props.alt} className={`${imgQuality} ${props.className || ""}`} /> : <></>;
 }
 
 export default AdaptiveImg;

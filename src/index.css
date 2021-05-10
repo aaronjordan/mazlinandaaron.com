@@ -21,6 +21,8 @@ timberline
   --window-pink-opaque: rgb(70, 124, 70);
   --window-orange: rgba(255, 225, 190, 0.5);
   --window-orange-opaque: hsl(32, 91%, 42%);
+  --destructive-button-color: rgb(236, 100, 100);
+  --img-load-blur-amount: 18px;
   --page-min-width: 640px;
   --page-width: 80%;
   --page-max-width: 1000px; 

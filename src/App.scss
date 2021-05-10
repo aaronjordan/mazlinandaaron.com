@@ -29,7 +29,11 @@ h1 {
   font-family: 'timberline';
 }
 
-.close {
+img {
+  clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+}
+
+.signature {
   font-size: 64pt;
   display: block;
   text-align: center;
@@ -80,6 +84,11 @@ h1 {
 
 .listItemHead {
   font-weight: bold;
+}
+
+.lead-in {
+  margin-top: 96px;
+  margin-bottom: 72px;
 }
 
 .text-content {
@@ -139,6 +148,15 @@ h1 {
     transform: translate(-9px, 12px);
     position: relative;
     display: inline-block;
+  }
+}
+
+main.registry {
+  text-align: center;
+  padding-top: 24px;
+  p {line-height: 3;}
+  :nth-child(2) {
+    font-size: 1.5rem;
   }
 }
 

@@ -48,27 +48,20 @@ export const ImageLoader = props => {
   const updateRef = useRef(null);
 
   const getHigherQuality = (label, preferredQuality) => {
-    return new Promise((resolve, reject) => {
-
+    const currentAction = (resolve, reject) => {
       if (!library.dictionary || library.qualityTable?.[label] === preferredQuality) {
         reject(false);
       } else if (library.hasOwnProperty(label) 
       && library.dictionary?.[label]?.[preferredQuality]) {
         axios.get(library.dictionary[label][preferredQuality], {...ALLOW_CORS, responseType: 'blob'}).then(res => {
           if(res.data) {
-            // return image at quality target
-            const updatedTable = {...library.qualityTable};
-            updatedTable[label] = preferredQuality;
-
-            const newProperties = Object.defineProperty({}, label, {
-              value: URL.createObjectURL(res.data),
-              enumerable: true,
-              writable: true,
-            });
-
-            // join new object with all non-enumerable properties
             setLibrary(lib => {
-              return Object.defineProperties(newProperties, {
+              // return image at quality target
+              const updatedTable = {...lib.qualityTable, [label]: preferredQuality};
+              const imagesList = {...lib, [label]: URL.createObjectURL(res.data)};
+  
+              // join new object with all non-enumerable properties
+              return Object.defineProperties(imagesList, {
                 dictionary: {
                   value: lib.dictionary,
                 },
@@ -94,7 +87,9 @@ export const ImageLoader = props => {
         console.error('An image label requested was not found.')
         reject(true);
       }
-    });
+    };
+
+    return new Promise(currentAction);
   };
 
   updateRef.current = getHigherQuality;
@@ -102,21 +97,26 @@ export const ImageLoader = props => {
   const init = useCallback(async () => {
     const dict = await getImageDictionary();
     
-    const keyedCollection = {};
-    Object.defineProperty(keyedCollection, 'dictionary', {
-      value: Object.freeze(dict),
-      enumerable: false,
-      writable: false 
-    });
-    Object.defineProperty(keyedCollection, 'qualityTable', {
-      value: {},
-      enumerable: false,
-      writable: true,
-    });
-    Object.defineProperty(keyedCollection, 'updateImage', {
-      value: (...params) => updateRef.current(...params),
-      enumerable: false,
-      writable: false
+    const keyedCollection = Object.defineProperties({}, {
+      dictionary: {
+        value: Object.freeze(dict),
+        enumerable: false,
+        writable: false 
+      },
+      qualityTable: {
+        value: {},
+        enumerable: false,
+        writable: true,
+      },
+      updateImage: {
+        value: (...params) => updateRef.current(...params),
+        enumerable: false,
+        writable: false
+      },
+      isInitialLoad: {
+        value: true,
+        writable: true,
+      }
     });
     
     // if images list was returned, load low-quality for each symbol.
@@ -125,15 +125,17 @@ export const ImageLoader = props => {
         const thisReq = val[AUTO_LOAD_TYPE] && axios.get(val[AUTO_LOAD_TYPE], {...ALLOW_CORS, responseType: 'blob'});
         thisReq?.then(res => {
           if(res.data) {
-            Object.defineProperty(keyedCollection, key, {
-              value: URL.createObjectURL(res.data),
-              enumerable: true,
-              writable: true
-            });
-            Object.defineProperty(keyedCollection.qualityTable, key, {
-              value: AUTO_LOAD_TYPE,
-              enumerable: true,
-              writable: true
+            Object.defineProperties(keyedCollection, {
+              [key]: {
+                value: URL.createObjectURL(res.data),
+                enumerable: true,
+                writable: true
+              },
+              qualityTable: {
+                value: { ...keyedCollection.qualityTable, [key]: AUTO_LOAD_TYPE },
+                enumerable: false,
+                writable: true
+              }
             });
           } else {
             console.warn('An image call failed.');
@@ -150,7 +152,7 @@ export const ImageLoader = props => {
   useEffect(() => init(), [init]);
 
   useEffect(() => {
-    library.dictionary && onInitialLoadComplete?.();
+    library.isInitialLoad && onInitialLoadComplete?.();
   }, [onInitialLoadComplete, library]);
 
   return <></>;

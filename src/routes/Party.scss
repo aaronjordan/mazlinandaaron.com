@@ -8,6 +8,12 @@ article.wedding-party-card {
   img {
     width: 250px;
     height: 250px;
+    box-shadow: var(--main-grey) 0 6px 18px -6px;
+    filter: blur(0px) brightness(1.1) contrast(0.9);
+
+    &.lq {
+      filter: blur(var(--img-load-blur-amount));
+    }
   }
   
   &:after {
@@ -34,7 +40,6 @@ article.wedding-party-card {
   .text-content {
     display: inline-block;
     width: calc(100% - 250px);
-    padding: 0 0 0 30px;
     margin: 0;
   }
 
@@ -45,4 +50,24 @@ article.wedding-party-card {
     }
   }
 
+  @media screen and (max-width: 640px) {
+    .text-content {
+      width: 95%;
+      margin: 18px auto;
+      text-align: left;
+      display: block;
+    }
+    
+    &.left, &.right {
+      img {float: none;}
+      .text-content {
+        padding: 0;
+      }
+    }
+
+    img {
+      display: block;
+      margin: auto;
+    }
+  }
 }

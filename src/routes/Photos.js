@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function Photos() {
   return (
-    <div>
+    <main>
       look at that awww
-    </div>
+    </main>
   )
 }
