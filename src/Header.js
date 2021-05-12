@@ -39,12 +39,12 @@ export const Header = () => {
         <div className="nav-inner-contents">
           <span className="tablet-row">
             <Link to="/"><li>Home</li></Link>
-            {/* <Link to="/rsvp"><li>RSVP</li></Link> */}
+            <Link to="/rsvp"><li>RSVP</li></Link>
             <Link to="/visiting-htx"><li>Visiting Houston</li></Link>
             <Link to="/registry"><li>Registry</li></Link>
           </span>
           <span className="tablet-row">
-            {/* <Link to="/livestream"><li>Livestream</li></Link> */}
+            <Link to="/livestream"><li>Livestream</li></Link>
             <Link to="/wedding-party"><li>Wedding Party</li></Link>
             <Link to="/photos"><li>Photos</li></Link>
           </span>

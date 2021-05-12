@@ -5,6 +5,7 @@ const IMAGE_BASE_URL =  '/media/image';
 const ALLOW_CORS = Object.freeze(process.env.NODE_ENV === 'development' ? {headers: {'Access-Control-Allow-Origin': '*'}} : {});
 export const QUALITY_GRADES = Object.freeze(['lq', 'mq', 'hq']);
 const AUTO_LOAD_TYPE = QUALITY_GRADES[0];
+export const NO_PREFETCH_PREFIX = 'p0'; // images beginning with this code do not block the initial application paint
 
 /**
  * getImageDictionary()
@@ -46,13 +47,13 @@ export const ImageLoader = props => {
   const [library, setLibrary] = props.library;
 
   const updateRef = useRef(null);
+  const initPrefixRef = useRef(null);
 
   const getHigherQuality = (label, preferredQuality) => {
     const currentAction = (resolve, reject) => {
       if (!library.dictionary || library.qualityTable?.[label] === preferredQuality) {
-        reject(false);
-      } else if (library.hasOwnProperty(label) 
-      && library.dictionary?.[label]?.[preferredQuality]) {
+        resolve(false);
+      } else if (library.dictionary.hasOwnProperty(label)) {
         axios.get(library.dictionary[label][preferredQuality], {...ALLOW_CORS, responseType: 'blob'}).then(res => {
           if(res.data) {
             setLibrary(lib => {
@@ -69,9 +70,8 @@ export const ImageLoader = props => {
                   value: updatedTable,
                   writable: true 
                 },
-                updateImage: {
-                  value: lib.updateImage,
-                }
+                updateImage: { value: lib.updateImage, },
+                initAllWithPrefix: { value: lib.initAllWithPrefix, }
               });
             });
 
@@ -81,11 +81,11 @@ export const ImageLoader = props => {
           }
         }).catch(() => {
           console.warn('Higher quality could not be pulled for an image.');
-          reject(true);
+          resolve(true);
         });
       } else {
         console.error('An image label requested was not found.')
-        reject(true);
+        resolve(true);
       }
     };
 
@@ -93,6 +93,15 @@ export const ImageLoader = props => {
   };
 
   updateRef.current = getHigherQuality;
+
+  const initAllWithPrefix = async (prefix) => {
+     const labels = Object.entries(library.dictionary).filter(prop => prop?.[0]?.startsWith(prefix));
+     const requests = labels.map(prop => getHigherQuality(prop[0], 'lq'));
+     await Promise.all(requests);
+     return true;
+  }
+
+  initPrefixRef.current = initAllWithPrefix;
 
   const init = useCallback(async () => {
     const dict = await getImageDictionary();
@@ -108,11 +117,8 @@ export const ImageLoader = props => {
         enumerable: false,
         writable: true,
       },
-      updateImage: {
-        value: (...params) => updateRef.current(...params),
-        enumerable: false,
-        writable: false
-      },
+      updateImage: { value: (...params) => updateRef.current(...params) },
+      initAllWithPrefix: { value: (...params) => initPrefixRef.current(...params) },
       isInitialLoad: {
         value: true,
         writable: true,
@@ -122,6 +128,9 @@ export const ImageLoader = props => {
     // if images list was returned, load low-quality for each symbol.
     if(Object.keys(dict).length > 0) {
       const imgRequests = Object.entries(dict).map(([key, val]) => {
+        // do not preload images for the gallery page
+        if(key.startsWith(NO_PREFETCH_PREFIX)) return Promise.resolve(true);
+
         const thisReq = val[AUTO_LOAD_TYPE] && axios.get(val[AUTO_LOAD_TYPE], {...ALLOW_CORS, responseType: 'blob', validateStatus: null});
         thisReq?.then(res => {
           if(res.data) {

@@ -160,3 +160,51 @@ main.registry {
   }
 }
 
+@-moz-keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+@keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+aside.img-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.151);
+  width: 100vw;
+  height: 100vh;
+
+  -webkit-animation: fadeIn 500ms;
+  -moz-animation: fadeIn 500ms;
+  animation: fadeIn 500ms;
+
+  img {
+    position: relative;
+    object-fit: contain;
+    max-width: 90vw;
+    max-height: 80vh;
+    margin: 10vh auto;
+    display: block;
+    z-index: 11;
+
+    &.modal-shadow {
+      position: absolute;
+      top: 30px; left: 0; right: 0;
+      z-index: 9;
+      filter: brightness(0.1) blur(60px);
+      clip-path: none;
+    }
+
+  }
+}
+
