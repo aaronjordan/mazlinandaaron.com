@@ -1,4 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faChevronCircleLeft, faChevronCircleRight, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 import {QUALITY_GRADES} from './ImageLoader';
 import {ImageContext} from './App';
 
@@ -19,6 +21,7 @@ const AdaptiveImg = props => {
   const updateRunning = React.useRef(false);
 
   const isModalEnabled = props.modal === true;
+  const isModalControlEnabled = typeof props.onModalMove == "function";
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   useEffect(() => {
@@ -47,7 +50,8 @@ const AdaptiveImg = props => {
     <>
       <img 
         src={imgBlob} 
-        alt={props.alt} 
+        alt={props.alt}
+        id={props.label}
         className={`${imgQuality} ${props.className || ""}`}
         onClick={isModalEnabled ? () => setIsModalOpen(true) : undefined} 
       />
@@ -65,6 +69,21 @@ const AdaptiveImg = props => {
             alt={props.alt} 
             className={`${imgQuality} ${"modal-shadow"}`}
           />
+          { isModalControlEnabled && 
+            <div className="controls">
+              <span className="action-button" onClick={e => props.onModalMove(e, props.label, 'back')}>
+                <FontAwesomeIcon icon={faChevronCircleLeft} />
+              </span>
+              <span className="action-button" onClick={e => props.onModalMove(e, props.label, 'next')}>
+                <FontAwesomeIcon icon={faChevronCircleRight} />
+              </span>
+            </div>
+          }
+          <div className="close-control">
+            <span className="action-button">
+              <FontAwesomeIcon icon={faTimesCircle} />
+            </span>
+          </div>
         </aside> 
       }
     </> : <></>;
