@@ -14,7 +14,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    grid-auto-rows: minmax(175px, auto);
+    grid-auto-rows: calc(min(35vw, 350px));
 
     .i02 {
       grid-column: 1 / 3;
