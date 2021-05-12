@@ -12,9 +12,9 @@ export default function FlexBorderContainer(props) {
       id: props.id || undefined, 
     },
     <>
-      {align !== 'left' && <div className="flex-border fb-left" />}
+      <div className={`flex-border fb-left ${align==='left' ? 'fb-hide' : ''}`} />
       <span>{props.children}</span>
-      {align !== 'right' && <div className="flex-border fb-right" />}
+      <div className={`flex-border fb-right ${align==='right' ? 'fb-hide' : ''}`} />
     </>
   );
 }

@@ -6,7 +6,7 @@ export default function PartyCard(props) {
   const {
     name="Firstname Lastname",
     imgLabel="https://via.placeholder.com/250/467c46/ffffff?text=%20",
-    align="left"
+    align="left",
   } = props;
 
   const imgElement = props.imgLabel ? 

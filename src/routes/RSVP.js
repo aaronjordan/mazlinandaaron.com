@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function RSVP() {
   return (
-    <div>
-      rsvp tab here
-    </div>
+    <main>
+      The RSVP tab is still being built! Please check back later for updates.
+    </main>
   )
 }

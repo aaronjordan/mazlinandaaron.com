@@ -16,23 +16,58 @@ const AdaptiveImg = props => {
   const targetQuality = Number.isInteger(Number(props.maxQuality)) ? 
     QUALITY_GRADES[Math.min(props.maxQuality, QUALITY_GRADES.length-1)] : 
     QUALITY_GRADES[1];
+  const updateRunning = React.useRef(false);
+
+  const isModalEnabled = props.modal === true;
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   useEffect(() => {
     setImgBlob(img => img !== ImageLibrary[props.label] ? ImageLibrary[props.label] : img);
   }, [props.label, ImageLibrary]);
 
   useEffect(() => {
+    if(!updateRunning.current && typeof ImageLibrary.updateImage == "function") { 
+      updateRunning.current = true;
       if (QUALITY_GRADES.indexOf(imgQuality) < QUALITY_GRADES.indexOf(targetQuality)) {
         // get higher quality image and swap
-        ImageLibrary.updateImage?.(props.label, targetQuality)
-          .then(() => setImgQuality(targetQuality))
+        ImageLibrary.updateImage(props.label, targetQuality)
+          .then(() => {
+            setImgQuality(targetQuality); 
+            updateRunning.current = false;
+          })
           .catch((fail) => {
             fail && console.warn('image update failed for label ' + props.label);
+            updateRunning.current = false;
           });
       }
+    } 
   }, [imgQuality, props.label, ImageLibrary, targetQuality]);
 
-  return imgBlob ? <img src={imgBlob} alt={props.alt} className={`${imgQuality} ${props.className}`} /> : <></>;
+  return imgBlob ? 
+    <>
+      <img 
+        src={imgBlob} 
+        alt={props.alt} 
+        className={`${imgQuality} ${props.className || ""}`}
+        onClick={isModalEnabled ? () => setIsModalOpen(true) : undefined} 
+      />
+      { isModalEnabled && isModalOpen &&
+        <aside 
+          className={`img-modal ${isModalOpen ? 'open' : 'closed'}`} 
+          onClick={() => setIsModalOpen(false)} >
+          <img 
+            src={imgBlob} 
+            alt={props.alt} 
+            className={`${imgQuality}`}
+          />
+          <img 
+            src={imgBlob} 
+            alt={props.alt} 
+            className={`${imgQuality} ${"modal-shadow"}`}
+          />
+        </aside> 
+      }
+    </> : <></>;
 }
 
 export default AdaptiveImg;
