@@ -17,12 +17,13 @@ export default function Party() {
       </PartyCard>
       <PartyCard 
         name="Bennett Meares" 
+        imgLabel="bennett"
         align="right"
       >
         Bennett is a source of inspiration for me. He’s the type of person to have a goal in mind and relentlessly chase after it, seen through things like founding Film Club (twice), consistently impressing me with software he’s written, and building a unique path for himself through obstacles that would’ve been barriers for anyone less driven. He has my respect and is likely my closest friend these days.
       </PartyCard>
       <PartyCard 
-        name="Ashton Priddy" 
+        name="Ashton Maddox" 
         imgLabel="ashton"
       >
         Strong & beautiful! These are the two best words to describe my friend Ashton! I’m so grateful for the two years we were “the Egan girls” in “the Egan house”. We must have watched About Time and Pride and Prejudice twice a month at least! I love that we get to share spaces in each other’s weddings and I’m so incredibly grateful for our friendship even after your move to Colorado.
@@ -42,6 +43,7 @@ export default function Party() {
       </PartyCard>
       <PartyCard 
         name="David Gleaton" 
+        imgLabel="gleaton"
         align="right"
       >
         I still remember the moment I met David, back in eighth grade. I think I made a reference to a YouTube channel, to which he replied something like, “Wait, do you watch the Yogscast?”. At that moment, the connection was made — we realized we were both quite geeky about similar things. Ever since, David has been a loyal friend I enjoy catching up with and regularly get decent recommendations from.

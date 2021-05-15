@@ -59,6 +59,14 @@ header {
       &:hover {
         background-color: var(--window-pink);
       }
+
+      &.disabled {
+        opacity: 0.5;
+        &:hover {
+          background: none;
+          box-shadow: none;
+        }
+      }
     }
   }
 }
