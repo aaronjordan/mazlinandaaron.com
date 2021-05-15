@@ -2,11 +2,10 @@
   img {
     opacity: 1;
     transition: filter 1s ease opacity 1s ease;
-    clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
   }
 
   img.lq {
-    filter: blur(18px) brightness(1.25) contrast(0.95) !important;
+    filter: blur(var(--img-load-blur-amount)) brightness(1.25) contrast(0.95) !important;
     opacity: 0.6;
   }
 

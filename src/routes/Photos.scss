@@ -1,0 +1,59 @@
+.photos-tab {
+
+  img {
+    opacity: 1;
+    transition: filter 1s ease opacity 1s ease;
+  }
+
+  img.lq {
+    filter: blur(var(--img-load-blur-amount)) brightness(1.25) contrast(0.95) !important;
+    opacity: 0.6;
+  }
+
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: calc(min(35vw, 350px));
+
+    .i02 {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+    }
+
+    .i04 {
+      grid-column: 2 / 4;
+      grid-row: 3 / 5;
+    }
+
+    .i08 {
+      grid-column: 2 / 4;
+      grid-row: 7 / 9;
+    }
+
+    .i14 {
+      grid-row: 6 / 7;
+      grid-column: 1 / 4;
+    }
+
+    .i18 {
+      grid-column: 1 / 4;
+      grid-row: 10 / 11;
+    }
+
+    .i29 {
+      grid-column: 1 / 3;
+      grid-row: 14 / 16;
+    }
+
+    .i24 {
+      grid-column: 1 / 4;
+    }
+  }
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

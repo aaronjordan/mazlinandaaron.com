@@ -36,9 +36,19 @@ export const Header = () => {
         onClick={() => isNavOpen && setIsNavOpen(false)}
       >
         <div className="nav-padding" id="left"/>
-        <Link to="/"><li>Home</li></Link>
-        <Link to="/upcoming"><li>Upcoming</li></Link>
-        {/* <Link to="/photos"><li>Photos</li></Link> */}
+        <div className="nav-inner-contents">
+          <span className="tablet-row">
+            <Link to="/"><li>Home</li></Link>
+            <Link to="/rsvp" className="disabled"><li>RSVP</li></Link>
+            <Link to="/visiting-htx" className="disabled"><li>Visiting Houston</li></Link>
+            <Link to="/registry"><li>Registry</li></Link>
+          </span>
+          <span className="tablet-row">
+            <Link to="/livestream" className="disabled"><li>Livestream</li></Link>
+            <Link to="/wedding-party"><li>Wedding Party</li></Link>
+            <Link to="/photos"><li>Photos</li></Link>
+          </span>
+        </div>
         <div className="nav-padding" id="right"/>
       </nav>
     </header>

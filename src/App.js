@@ -8,6 +8,11 @@ import Header from './Header';
 import Footer from './Footer';
 import Home from './routes/Home';
 import Upcoming from './routes/Upcoming';
+import Rsvp from './routes/RSVP';
+import Visiting from './routes/Visiting';
+import Registry from './routes/Registry';
+import Livestream from './routes/Livestream';
+import Party from './routes/Party';
 import Photos from './routes/Photos';
 import './App.scss';
 
@@ -32,6 +37,11 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/upcoming" component={Upcoming} />
+          <Route path="/rsvp" component={Rsvp} />
+          <Route path="/visiting-htx" component={Visiting} />
+          <Route path="/registry" component={Registry} />
+          <Route path="/livestream" component={Livestream} />
+          <Route path="/wedding-party" component={Party} />
           <Route path="/photos" component={Photos} />
         </Switch>
         </ImageContext.Provider>

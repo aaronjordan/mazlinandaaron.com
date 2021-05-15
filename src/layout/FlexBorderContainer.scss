@@ -18,6 +18,15 @@
 
   span {
     font-family: 'kepler-std-display';
-    font-size: 28pt;
+    h3 { font-size: 2.75rem; }
+    h4 { font-size: 2.25rem; }
+  }
+
+  &.added-space {
+    margin: 72px 0px;
+  }
+
+  @media screen and (min-width: 640px) {
+    div.flex-border.fb-hide {display: none;}
   }
 }
