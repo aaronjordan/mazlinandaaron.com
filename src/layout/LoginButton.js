@@ -1,8 +1,9 @@
 import React from 'react';
+import { Login } from '../Helpers';
 import { AppContext } from '../App';
 
 const handleLoginChange = () => {
-
+  Login();
 };
 
 const LoginButton = props => {

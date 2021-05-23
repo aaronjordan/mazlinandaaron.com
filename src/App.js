@@ -49,7 +49,7 @@ function App() {
       <ImageLoader library={imageState} onInitialLoadComplete={makePageVisible}/>
       <AppContext.Provider value={appState}>
         <div className={"App " + ((isPageVisible) ? "show" : "hidden")}>
-          {/* <Settings /> */}
+          <Settings />
           <Header />
           <ImageContext.Provider value={imageState[0]}>
           <Switch>
