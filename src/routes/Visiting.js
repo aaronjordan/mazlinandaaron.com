@@ -126,7 +126,7 @@ export default function Visiting() {
       <article id="flights">
         <FlexBorderContainer as="h2">Flights</FlexBorderContainer>
         <p>We anticipate that a large percentage of guests, especially those from South Carolina, will be flying in for the wedding. To give a general idea of airline prices, we gathered these tables of round-trip flight prices into the two airports in Houston. As always, airline prices will fluctuate from day-to-day. The trip priced is the cheapest available set of tickets from each airline-airport pairing on May 13, 2021.</p>
-        <details>
+        <details open>
           <summary>
             <h4>Flights into                  
               <OverlayTrigger
@@ -186,7 +186,7 @@ export default function Visiting() {
           </Table>
           * The flight from GSP into HOU on Southwest is a nonstop flight.
         </details>
-        <details>
+        <details open>
           <summary>
             <h4>Flights into                  
               <OverlayTrigger
