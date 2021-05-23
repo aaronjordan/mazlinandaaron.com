@@ -29,7 +29,7 @@ const AdaptiveImg = props => {
   }, [props.label, ImageLibrary]);
 
   useEffect(() => {
-    if(!updateRunning.current && typeof ImageLibrary.updateImage == "function") { 
+    if(props.label && !updateRunning.current && typeof ImageLibrary.updateImage == "function") { 
       updateRunning.current = true;
       if (QUALITY_GRADES.indexOf(imgQuality) < QUALITY_GRADES.indexOf(targetQuality)) {
         // get higher quality image and swap
@@ -52,7 +52,7 @@ const AdaptiveImg = props => {
         src={imgBlob} 
         alt={props.alt}
         id={props.label}
-        className={`${imgQuality} ${props.className || ""}`}
+        className={`${imgQuality} ${props.className || ""} ${isModalEnabled ? "with-modal" : ""}`}
         onClick={isModalEnabled ? () => setIsModalOpen(true) : undefined} 
       />
       { isModalEnabled && isModalOpen &&
@@ -86,7 +86,13 @@ const AdaptiveImg = props => {
           </div>
         </aside> 
       }
-    </> : <></>;
+    </> : <img 
+        src="https://via.placeholder.com/300" 
+        alt={props.alt}
+        id={props.label || ''}
+        className={`${imgQuality} ${props.className || ""}`}
+        onClick={isModalEnabled ? () => setIsModalOpen(true) : undefined} 
+      />;
 }
 
 export default AdaptiveImg;

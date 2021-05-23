@@ -1,0 +1,68 @@
+.settings-icon {
+  position: absolute;
+  top:15px; right:calc(max(25px, calc(50vw - 500px)));
+  font-size: 1.5rem;
+  padding: 8px 8px 0 8px;
+  color: #ccc8c8;
+  transition: top none, right none;
+  text-align: right;
+  z-index: 5;
+  
+  button {
+    background: none;
+    border: none;
+  }
+
+  aside {
+    color: var(--main-black);
+    background-color: var(--main-white);
+    padding: 18px 12px 12px;
+    box-shadow: var(--main-black) 0 1.5px 12px -3px;
+    border-radius: 18px;
+    font-size: 1.1rem;
+    position: relative;
+    transform: translateY(-40px);
+    width: 300px;
+    text-align: left;
+
+    button.close {
+      position: absolute;
+      top: 6px; right: 12px;
+      font-size: 28px;
+      padding: 6px;
+    }
+
+    .login-group {
+      margin-bottom: 24px;
+    }
+
+    h4 {
+      text-align: center;
+      margin: 0 auto 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--main-black);
+    }
+
+    li {
+      margin-top: 12px;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .icon {
+    opacity: 1;
+  }
+  
+  .icon:hover {
+    opacity: 0.85;
+    transform: rotateZ(30deg);
+  }
+
+  .icon.open {
+    transform: rotateZ(30deg);
+  }
+}
