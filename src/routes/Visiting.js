@@ -61,9 +61,6 @@ export default function Visiting() {
           </p>
         </section>
         <section id="otherHotels">
-          <p>
-            There are many great hotel options in and around Houston! We chose to block rooms at the Best Western Plus because we feel that both its positioning in downtown Houston and its proximity to our wedding space make it a great fit for most of our guests. Of course, you do not have to book a room there to attend our wedding and are welcome to do your own research on the area to choose a hotel that best suits your needs.
-          </p>
           <div className="imgContainer275">
             <AdaptiveImg 
               label="search"
@@ -71,6 +68,9 @@ export default function Visiting() {
               modal
               />
           </div>
+          <p>
+            There are many great hotel options in and around Houston! We chose to block rooms at the Best Western Plus because we feel that both its positioning in downtown Houston and its proximity to our wedding space make it a great fit for most of our guests. Of course, you do not have to book a room there to attend our wedding and are welcome to do your own research on the area to choose a hotel that best suits your needs.
+          </p>
         </section>
       </article>
       <article id="thingsToDo">
