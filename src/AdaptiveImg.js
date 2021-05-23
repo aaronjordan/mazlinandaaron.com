@@ -93,6 +93,7 @@ const AdaptiveImg = props => {
         className={`${imgQuality} ${props.className || ""}`}
         onClick={isModalEnabled ? () => setIsModalOpen(true) : undefined} 
       />;
+
 }
 
 export default AdaptiveImg;
