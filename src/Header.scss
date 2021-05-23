@@ -121,6 +121,7 @@ header {
     
     nav {
       position: fixed;
+      transition: opacity 1s;
     }
     
     nav .nav-padding {
@@ -161,6 +162,7 @@ header {
     nav.closed {
       transition: opacity 0s;
       opacity: 0;
+      transform: translateX(100%);
     }
 
   }

@@ -29,8 +29,20 @@ h1 {
   font-family: 'timberline';
 }
 
+h2, h3, h4 {
+  font-family: 'kepler-std-display';
+}
+
+summary h3, summary h4 {
+  display: inline;
+}
+
 img {
   clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+}
+
+img.with-modal:hover {
+  cursor: pointer;
 }
 
 .signature {
@@ -57,6 +69,10 @@ img {
   min-width: var(--page-min-width);
   max-width: var(--page-max-width);
   transition: opacity 1.5s ease-in;
+}
+
+.tooltip .arrow{
+  transition: none;
 }
 
 .App.show {
@@ -119,6 +135,23 @@ img {
   color: var(--main-grey);
   letter-spacing: 2pt;
   font-size: 12pt;
+}
+
+button.login {
+  background-color: var(--window-pink-opaque);
+  color: var(--main-white);
+  padding: 6px 12px;
+  border-radius: 6px;
+  box-shadow: var(--main-black) 0 1px 6px -2px;
+  margin-top: 6px;
+
+  &:hover {
+    filter: brightness(1.15);
+  }
+  &:active {
+    transition: filter 0.1s linear;
+    filter: brightness(0.9);
+  }
 }
 
 .countdownComponent {

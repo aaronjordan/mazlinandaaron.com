@@ -40,7 +40,7 @@ export const Header = () => {
           <span className="tablet-row">
             <Link to="/"><li>Home</li></Link>
             <Link to="/rsvp" className="disabled"><li>RSVP</li></Link>
-            <Link to="/visiting-htx" className="disabled"><li>Visiting Houston</li></Link>
+            <Link to="/visiting-htx"><li>Visiting Houston</li></Link>
             <Link to="/registry"><li>Registry</li></Link>
           </span>
           <span className="tablet-row">
