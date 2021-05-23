@@ -1,7 +1,7 @@
 #visitHtx {
 
   section {
-    margin: 48px 0 72px;
+    margin: 48px auto 72px;
   }
 
   .imgContainer275 {
@@ -33,11 +33,12 @@
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-evenly;
+    max-width: 900px;
   }
 
   .todo-item {
     width: 320px;
-    margin-bottom: 24px;
+    margin: 0 6px 24px;
     border: 1px solid var(--main-grey-trans);
     padding: 10px;
     box-shadow: var(--main-black) 0 2px 8px -6px;
