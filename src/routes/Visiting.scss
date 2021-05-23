@@ -90,9 +90,13 @@
     }
   }
 
+  #otherHotels {
+    flex-direction: row-reverse;
+  }
+
   @media only screen and (max-width: 640px) {
   
-    #bestWestern {
+    #bestWestern, #otherHotels {
       flex-direction: column;
       align-items: center;
       img {
