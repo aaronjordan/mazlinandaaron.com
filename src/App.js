@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
+import { AppStateReducer, AppStateInit } from './AppStateReducer';
 import ImageLoader from './ImageLoader';
 import Settings from './Settings';
 import Header from './Header';
@@ -20,23 +21,10 @@ import './App.scss';
 export const AppContext = React.createContext(null);
 export const ImageContext = React.createContext(null);
 
-const AppDataInit = () => ({
-  email: 'bennett.meares@gmail.co',
-});
-
-const AppDataReducer = (state, action) => {
-
-  switch (action.type) {
-    default:
-      return state;
-  }
-
-};
-
 function App() {
   const [isPageVisible, setIsPageVisible] = useState(false);
   const makePageVisible = useCallback(() => setIsPageVisible(true), [setIsPageVisible]);
-  const appState = useReducer(AppDataReducer, AppDataInit());
+  const appState = useReducer(AppStateReducer, AppStateInit());
   const imageState = useState({});
 
   setTimeout(() => makePageVisible(), 8000); // make page visible after 8s even if image are loading

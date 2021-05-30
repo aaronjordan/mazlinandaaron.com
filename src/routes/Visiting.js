@@ -90,7 +90,7 @@ export default function Visiting() {
             />
           <ItemCard 
             imgLabel="galveston"
-            title="Glaveston Beach"
+            title="Galveston Beach"
             />
           <ItemCard 
             imgLabel="baybrookmall"
@@ -116,10 +116,6 @@ export default function Visiting() {
           <ItemCard 
             imgLabel="tinys"
             title="Tiny’s Milk and Cookies"
-            />
-          <ItemCard 
-            imgLabel="chuys"
-            title="Chuy's"
             />
         </section>
       </article>
