@@ -1,9 +1,9 @@
 import React from 'react';
-import { Login } from '../Helpers';
+import { LoginSSO } from '../Helpers';
 import { AppContext } from '../App';
 
 const handleLoginChange = () => {
-  Login();
+  LoginSSO();
 };
 
 const LoginButton = props => {
