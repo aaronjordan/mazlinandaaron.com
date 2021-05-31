@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppContext } from '../App';
+// import { AppContext } from '../App';
 
 const SettingsItem = props => {
   // this will be needed later
