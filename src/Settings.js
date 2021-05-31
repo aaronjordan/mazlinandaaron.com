@@ -15,16 +15,12 @@ const Settings = props => {
 
   
   useEffect(() => {
-    console.log('settings did mount');
-    console.log('env is: ', process.env.NODE_ENV);
-
     // load db settings from cookie state or defaults on localhost
     // load correct route if in localStorage
 
     if (document.cookie?.includes('login_email')) {
       // user is authenticated over sso
       const loginCookies = readCookies('login_');
-
       dispatch({
         type: LOGIN_STATE_INIT,
         payload: {

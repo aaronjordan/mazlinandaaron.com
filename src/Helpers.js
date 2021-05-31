@@ -1,3 +1,5 @@
+const KEY_VALUE_CAPTURING_PATTERN = '(.{0,})=(.{0,})';
+
 /**
  * A login helper function. Takes a configuration object with these fields:
  * provider<string>: the login provider to use 'google' / 'facebook'
@@ -36,12 +38,12 @@ const needsDecoding = x => decodeURI(x) !== decodeURIComponent(x) || x.includes(
  * Note that the prefix will be removed from the name of the cookie in the returned object.
  */
 export const readCookies = (prefix='') => {
-  const regexp = new RegExp(prefix + '(.{0,})=(.{0,})');
+  const regexp = new RegExp(prefix + KEY_VALUE_CAPTURING_PATTERN);
 
   const rawCookies = String(document.cookie).split(';');
-  const cookieMatches = rawCookies.map(x => x.match(regexp));
-
+  const cookieMatches = rawCookies.map(x => x.match(regexp)).filter(x => x !== null);
   // each match will be of shape ['full match', 'short_key', 'value']
+
   return cookieMatches.reduce((acc, cur, idx) => {
 
     cur instanceof Array && cur.length === 3 && 
@@ -53,3 +55,19 @@ export const readCookies = (prefix='') => {
 
   }, {});
 }
+
+export const clearCookies = (prefix='') => {
+  const regexp = new RegExp(prefix + KEY_VALUE_CAPTURING_PATTERN);
+
+  const rawCookies = String(document.cookie).split(';');
+  const cookieMatches = rawCookies.map(x => x.match(regexp)).filter(x => x !== null);
+  // each match will be of shape ['full match', 'short_key', 'value']
+
+  const cookieKeys = cookieMatches.map(arr => arr[0].slice(0, arr[0].indexOf('=')));
+
+  for (let c of cookieKeys) {
+    document.cookie = `${c}=;max-age=0;Secure`;
+  }
+
+  return true;
+};
