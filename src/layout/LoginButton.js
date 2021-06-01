@@ -2,10 +2,21 @@ import React from 'react';
 import { LoginSSO, clearCookies } from '../Helpers';
 import { AppContext } from '../App';
 import { LOGOUT_ACTION } from '../AppStateReducer';
+import google_button from '../img/g2x.png';
+import facebook_logo from '../img/f72.png'; 
 
 const handleLogin = () => {
-  LoginSSO();
+  LoginSSO({provider: 'google'});
 };
+
+const GoogleButton = () => <button className="g-login auth">
+  <img src={google_button} alt="Sign in with Google" />
+</button>
+
+const FacebookButton = () => <button className="fb-login auth">
+  <img src={facebook_logo} alt="Facebook logo" />
+  <span>Login with Facebook</span>
+</button>
 
 /**
  * Log out a user by clearing cookies and storage
@@ -23,12 +34,20 @@ const LoginButton = props => {
   const [appState, dispatch] = React.useContext(AppContext);
   const dispatchLogout = () => dispatch({type: LOGOUT_ACTION});
 
-  return (
-    <button 
-      className="login" 
-      onClick={!appState.isAuthenticated ? handleLogin : () => handleLogout(dispatchLogout)} 
-      >Log {appState.email ? 'Out' : 'In'}
-    </button>
+  if(!appState.isAuthenticated) return (
+      <>
+        <GoogleButton />
+        <FacebookButton />
+      </>
+    );
+  else return (
+    <>
+      <button 
+        className="logout" 
+        onClick={() => handleLogout(dispatchLogout)} 
+        >Log Out
+      </button>
+    </>
   );
 };
 

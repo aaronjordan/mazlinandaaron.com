@@ -3,6 +3,7 @@ import { Alert, Table } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 // import axios from 'axios';
 
+import RequireLogin from '../layout/RequireLogin';
 import { AppContext } from '../App';
 import './RSVP.scss';
 
@@ -149,6 +150,6 @@ export default function RSVP() {
     );
   } else {
     // replace with component!
-    return <main className="login-gate">You need to log in to view this page!</main>
+    return <main className="login-gate"><RequireLogin /></main>;
   }
 }

@@ -18,7 +18,7 @@ export const LoginSSO = (configuration) => {
       window.location.href = '/api/sso/google';
       break;
     case 'facebook':
-      console.warn('fb auth not set up');
+      window.location.href = '/api/sso/facebook';
       break;
     default:
       console.error('invalid SSO provider');
@@ -56,6 +56,11 @@ export const readCookies = (prefix='') => {
   }, {});
 }
 
+/**
+ * Function will find and clear cookies with the given prefix
+ * Will clear all cookies if no prefix is provided
+ * @returns {boolean} true if at least one cookie was cleared
+ */
 export const clearCookies = (prefix='') => {
   const regexp = new RegExp(prefix + KEY_VALUE_CAPTURING_PATTERN);
 
@@ -64,6 +69,7 @@ export const clearCookies = (prefix='') => {
   // each match will be of shape ['full match', 'short_key', 'value']
 
   const cookieKeys = cookieMatches.map(arr => arr[0].slice(0, arr[0].indexOf('=')));
+  if (cookieKeys.length === 0) return false;
 
   for (let c of cookieKeys) {
     document.cookie = `${c}=;max-age=0;Secure`;
