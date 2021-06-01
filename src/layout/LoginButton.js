@@ -5,18 +5,26 @@ import { LOGOUT_ACTION } from '../AppStateReducer';
 import google_button from '../img/g2x.png';
 import facebook_logo from '../img/f72.png'; 
 
-const handleLogin = () => {
-  LoginSSO({provider: 'google'});
+const handleLogin = (provider) => {
+  LoginSSO({provider});
 };
 
-const GoogleButton = () => <button className="g-login auth">
-  <img src={google_button} alt="Sign in with Google" />
-</button>
+const GoogleButton = () => (
+  <button 
+    className="g-login auth"
+    onClick={() => handleLogin('google')}>
+    <img src={google_button} alt="Sign in with Google" />
+  </button>
+);
 
-const FacebookButton = () => <button className="fb-login auth">
-  <img src={facebook_logo} alt="Facebook logo" />
-  <span>Login with Facebook</span>
-</button>
+const FacebookButton = () => (
+  <button 
+    className="fb-login auth"
+    onClick={() => handleLogin('facebook')}>
+    <img src={facebook_logo} alt="Facebook logo" />
+    <span>Login with Facebook</span>
+  </button>
+);
 
 /**
  * Log out a user by clearing cookies and storage
