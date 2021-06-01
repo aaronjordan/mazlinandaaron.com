@@ -349,9 +349,11 @@ section.login-guard {
   }
 
   p#disclaimer {
-    display: inline-block;
+    display: block;
     font-size: 1.05rem;
+    margin: 18px auto;
     width: 60%;
+    max-width: 450px;
   }
 }
 
