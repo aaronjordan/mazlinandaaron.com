@@ -120,6 +120,10 @@ span.no-break {
   margin: 0;
 }
 
+p.even-margin {
+  margin: 18px 0;
+}
+
 .text-content {
   box-sizing: border-box;
   margin: 12px 0px 48px;
@@ -150,8 +154,8 @@ span.no-break {
   font-size: 12pt;
 }
 
-button.login {
-  background-color: var(--window-pink-opaque);
+button.logout {
+  background-color: #1085d3;
   color: var(--main-white);
   padding: 6px 12px;
   border-radius: 6px;
@@ -164,6 +168,47 @@ button.login {
   &:active {
     transition: filter 0.1s linear;
     filter: brightness(0.9);
+  }
+}
+
+button.auth {
+  display: inline-block;
+  margin: 0 auto;
+  border: none;
+  background: none;
+  &:hover {
+    opacity: 0.9;
+    filter: brightness(0.7) contrast(1.5);
+  }
+}
+
+button.g-login {
+  width: 260px;
+  padding: 0;
+
+  img {
+    height: 64px;
+    width: 260px;
+  }
+}
+
+button.fb-login {
+  background-color: #1877F2;
+  color: white;
+  height: 57px;
+  width: 253px;
+  box-sizing: border-box;
+  padding: 6px 12px;
+  text-align: left;
+  border-radius: 2.5px;
+
+  img {
+    max-height: 80%;
+  }
+  span {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+    margin-left: 12px;
   }
 }
 
@@ -292,6 +337,21 @@ aside.img-modal {
       font-size: 2.5rem;
       color: var(--main-white);
     }
+  }
+}
+
+section.login-guard {
+  text-align: center;
+
+  p.lead {
+    font-weight: 700;
+    font-size: 1.35rem;
+  }
+
+  p#disclaimer {
+    display: inline-block;
+    font-size: 1.05rem;
+    width: 60%;
   }
 }
 

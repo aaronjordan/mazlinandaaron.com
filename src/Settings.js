@@ -5,7 +5,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from './App';
 import { LOGIN_STATE_INIT } from './AppStateReducer';
 import { readCookies } from './Helpers';
-import SettingsItem from './layout/SettingsItem';
+// import SettingsItem from './layout/SettingsItem';
 import { LoginGroup } from './layout/LoginButton';
 import './Settings.scss';
 
@@ -67,8 +67,6 @@ const Settings = props => {
             <h4>Settings</h4>
             <ul>
               <LoginGroup />
-              <SettingsItem type="theme" />
-              <SettingsItem type="cookie" />
             </ul>
           </aside>
         }
