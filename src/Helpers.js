@@ -11,8 +11,8 @@ export const LoginSSO = (configuration) => {
     routeReturnTo: '',
   }, configuration);
 
-  sessionStorage.setItem('isGettingAuth', true);
-  config.routeReturnTo && sessionStorage.setItem('returnTo', config.routeReturnTo);
+  localStorage.setItem('isGettingAuth', true);
+  config.routeReturnTo && localStorage.setItem('returnTo', config.routeReturnTo);
   
   switch (config.provider) {
     case 'google':
