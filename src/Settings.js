@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import { useLocation, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 import { AppContext } from './App';
-import { LOGIN_STATE_INIT } from './AppStateReducer';
+import { LOGIN_STATE_INIT, UPDATE_LOCATION } from './AppStateReducer';
 import { readCookies } from './Helpers';
 // import SettingsItem from './layout/SettingsItem';
 import { LoginGroup } from './layout/LoginButton';
@@ -12,11 +13,19 @@ import './Settings.scss';
 const Settings = props => {
   const [appState, dispatch] = React.useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [redirectRoute, setRedirectRoute] = useState(null);
+  const currentRoute = useLocation();
 
   
   useEffect(() => {
     // load db settings from cookie state or defaults on localhost
     // load correct route if in localStorage
+
+    sessionStorage.removeItem('isGettingAuth');
+
+    const returnTo = sessionStorage.getItem('returnTo');
+    sessionStorage.removeItem('returnTo');
+    returnTo && returnTo !== '/' && setRedirectRoute(returnTo);
 
     if (document.cookie?.includes('login_email')) {
       // user is authenticated over sso
@@ -55,6 +64,10 @@ const Settings = props => {
   
   useEffect(() => console.log('%c New appstate! ', 'background-color:cyan; color: black;', appState), [appState]);
 
+  useEffect(() => {
+    !sessionStorage.getItem('isGettingAuth') && dispatch({type: UPDATE_LOCATION, payload: currentRoute.pathname});
+  }, [currentRoute, dispatch]);
+
   return (
     <>
       <div className="settings-icon">
@@ -71,6 +84,7 @@ const Settings = props => {
           </aside>
         }
       </div>
+      {redirectRoute && <Redirect to={redirectRoute} />} 
     </>
   );
 };
