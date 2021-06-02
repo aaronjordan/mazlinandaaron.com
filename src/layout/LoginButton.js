@@ -5,22 +5,25 @@ import { LOGOUT_ACTION } from '../AppStateReducer';
 import google_button from '../img/g2x.png';
 import facebook_logo from '../img/f72.png'; 
 
-const handleLogin = (provider) => {
+const handleLogin = (provider, returnTo) => {
   LoginSSO({provider});
+  sessionStorage.setItem('isGettingAuth', true);
+  sessionStorage.setItem('returnTo', returnTo || '/');
+  console.log(returnTo)
 };
 
-const GoogleButton = () => (
+const GoogleButton = (props) => (
   <button 
     className="g-login auth"
-    onClick={() => handleLogin('google')}>
+    onClick={() => handleLogin('google', props.returnTo)}>
     <img src={google_button} alt="Sign in with Google" />
   </button>
 );
 
-const FacebookButton = () => (
+const FacebookButton = (props) => (
   <button 
     className="fb-login auth"
-    onClick={() => handleLogin('facebook')}>
+    onClick={() => handleLogin('facebook', props.returnTo)}>
     <img src={facebook_logo} alt="Facebook logo" />
     <span>Login with Facebook</span>
   </button>
@@ -44,8 +47,8 @@ const LoginButton = props => {
 
   if(!appState.isAuthenticated) return (
       <>
-        <GoogleButton />
-        <FacebookButton />
+        <GoogleButton returnTo={appState.activeRoute}/>
+        <FacebookButton returnTo={appState.activeRoute}/>
       </>
     );
   else return (
