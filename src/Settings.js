@@ -27,6 +27,8 @@ const Settings = props => {
       returnTo && returnTo !== '/' && setRedirectRoute(returnTo);
     }
 
+    alert(document.cookie);
+
     // read from document cookies if present
     if (document.cookie?.includes('login_email')) {
       // user is authenticated over sso
