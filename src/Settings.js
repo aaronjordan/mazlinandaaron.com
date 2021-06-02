@@ -18,15 +18,16 @@ const Settings = props => {
 
   
   useEffect(() => {
-    // load db settings from cookie state or defaults on localhost
-    // load correct route if in localStorage
+    // handle redirect upon return from oauth 
+    if(sessionStorage.getItem('isGettingAuth')) {
+      sessionStorage.removeItem('isGettingAuth');
+      
+      const returnTo = sessionStorage.getItem('returnTo');
+      sessionStorage.removeItem('returnTo');
+      returnTo && returnTo !== '/' && setRedirectRoute(returnTo);
+    }
 
-    sessionStorage.removeItem('isGettingAuth');
-
-    const returnTo = sessionStorage.getItem('returnTo');
-    sessionStorage.removeItem('returnTo');
-    returnTo && returnTo !== '/' && setRedirectRoute(returnTo);
-
+    // read from document cookies if present
     if (document.cookie?.includes('login_email')) {
       // user is authenticated over sso
       const loginCookies = readCookies('login_');
