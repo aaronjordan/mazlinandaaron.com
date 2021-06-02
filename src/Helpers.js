@@ -19,7 +19,6 @@ export const LoginSSO = (configuration) => {
       window.location.href = '/api/sso/google';
       break;
     case 'facebook':
-      alert('facebook login')
       window.location.href = '/api/sso/facebook';
       break;
     default:
