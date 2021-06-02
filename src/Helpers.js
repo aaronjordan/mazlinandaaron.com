@@ -11,13 +11,15 @@ export const LoginSSO = (configuration) => {
     routeReturnTo: '',
   }, configuration);
 
-  if(config.routeReturnTo) localStorage.setItem('return_to', config.routeReturnTo);
+  sessionStorage.setItem('isGettingAuth', true);
+  config.routeReturnTo && sessionStorage.setItem('returnTo', config.routeReturnTo);
   
   switch (config.provider) {
     case 'google':
       window.location.href = '/api/sso/google';
       break;
     case 'facebook':
+      alert('facebook login')
       window.location.href = '/api/sso/facebook';
       break;
     default:

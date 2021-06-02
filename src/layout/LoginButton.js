@@ -5,12 +5,7 @@ import { LOGOUT_ACTION } from '../AppStateReducer';
 import google_button from '../img/g2x.png';
 import facebook_logo from '../img/f72.png'; 
 
-const handleLogin = (provider, returnTo) => {
-  LoginSSO({provider});
-  sessionStorage.setItem('isGettingAuth', true);
-  sessionStorage.setItem('returnTo', returnTo || '/');
-  console.log(returnTo)
-};
+const handleLogin = (provider, returnTo) => void LoginSSO({provider, routeReturnTo: returnTo || '/'});
 
 const GoogleButton = (props) => (
   <button 
