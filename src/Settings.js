@@ -19,11 +19,11 @@ const Settings = props => {
   
   useEffect(() => {
     // handle redirect upon return from oauth 
-    if(sessionStorage.getItem('isGettingAuth')) {
-      sessionStorage.removeItem('isGettingAuth');
+    if(localStorage.getItem('isGettingAuth')) {
+      localStorage.removeItem('isGettingAuth');
       
-      const returnTo = sessionStorage.getItem('returnTo');
-      sessionStorage.removeItem('returnTo');
+      const returnTo = localStorage.getItem('returnTo');
+      localStorage.removeItem('returnTo');
       returnTo && returnTo !== '/' && setRedirectRoute(returnTo);
     }
 
