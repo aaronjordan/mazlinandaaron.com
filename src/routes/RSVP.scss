@@ -16,7 +16,7 @@
 
   button.rsvpConfirm {
     font-size: 1rem;
-    background-color: WHITE;
+    background-color: white;
     border: 1px solid var(--main-grey-trans);
     padding: 3px 12px;
     margin: 6px 12px;
@@ -25,12 +25,12 @@
   }
   
   button:hover {
-    &#rsvpYes {
+    &.primary {
       background-color: var(--window-pink);
       box-shadow: 0 0px 16px -12px var(--main-grey);
     }
 
-    &#rsvpNo {
+    &.secondary {
       background-color: var(--main-white);
       box-shadow: 0 0px 16px -12px var(--main-grey);
     }
@@ -38,6 +38,20 @@
 
   td {
     line-height: 2.5;
+  }
+
+  .return-button {
+    display: inline-block;
+    margin: 0 120px;
+    text-decoration: underline;
+    background-color: rgba(0,0,0,0);
+
+    &:hover {
+      color: black;
+      cursor: pointer;
+      background-color:var(--window-pink);
+      box-shadow: 0 0 0 6px var(--window-pink);
+    }
   }
 }
 

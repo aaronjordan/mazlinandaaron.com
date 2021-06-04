@@ -152,14 +152,14 @@ export default function RSVP() {
                 <strong>You're on the list!</strong>
                 <p>Will you be attending our wedding in person on <span className='no-break'>August 1, 2021</span> in Houston, Texas?</p>
                 <button 
-                  className="rsvpConfirm" 
+                  className="rsvpConfirm primary" 
                   id="rsvpYes"
                   onClick={() => handleSelfConfirmButton(true)}
                   >
                   YES!
                 </button>
                 <button 
-                  className="rsvpConfirm" 
+                  className="rsvpConfirm secondary" 
                   id="rsvpNo"
                   onClick={() => handleSelfConfirmButton(false)}
                   >
@@ -201,21 +201,28 @@ export default function RSVP() {
                       </tr>)}
                     </tbody>
                   </Table>
-                  <button type="submit">Submit</button>
+                  <button className="rsvpConfirm primary" type="submit">Submit</button>
                 </form>}
               </article>
             </>}
             {rsvpPhase === 4 && <>
               <strong>Thank you for updating our records.</strong>
               <p>The group RSVP response was successfully processed.</p>
-              <button onClick={() => handleResetSession()}>View your submission</button>
+              <button className="rsvpConfirm primary" onClick={() => handleResetSession()}>View your submission</button>
             </> }
           </>}
         </> : <>
           { !selfData ? <BasicLoading /> :
             <>
             {rsvpPhase === 0 && <article className="info">
-              Welcome back!
+              <p>Welcome back!</p>
+              <p>{'<< add dynamic confirmation info here for user + group >>'}</p>
+              <p>Need to change something? 
+                <span 
+                  className="return-button"
+                  onClick={() => setIsInitialVisit(true)}
+                  >Click here to do that!</span>
+              </p>
             </article>}
             </>
           }
