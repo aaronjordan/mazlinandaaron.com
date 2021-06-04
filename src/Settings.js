@@ -27,8 +27,6 @@ const Settings = props => {
       returnTo && returnTo !== '/' && setRedirectRoute(returnTo);
     }
 
-    alert(document.cookie);
-
     // read from document cookies if present
     if (document.cookie?.includes('login_email')) {
       // user is authenticated over sso
@@ -61,6 +59,9 @@ const Settings = props => {
           name: 'Aaron Jordan'
         }
       });
+
+      document.cookie='login_name=Aaron Jordan; Secure;'
+      document.cookie='login_email=jaaronjordan@gmail.com; Secure;'
     }
 
   }, [dispatch]);

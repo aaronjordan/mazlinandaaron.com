@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Alert, Table } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-// import axios from 'axios';
+import axios from 'axios';
 
 import RequireLogin from '../layout/RequireLogin';
 import { AppContext } from '../App';
@@ -16,22 +16,16 @@ const formTranslations = Object.freeze({
 export default function RSVP() {
   // eslint-disable-next-line
   const [appState, dispatch] = React.useContext(AppContext);
-  const [isPageReady, setIsPageReady] = useState(false);
+  const [selfData, setSelfData] = useState(null);
+  const [pageError, setPageError] = useState(null);
   const [isInitialVisit, setIsInitialVisit] = useState(true); // TODO: user login state should return login_rsvp_confirmed T/F
   const [rsvpPhase, setRsvpPhase] = useState(appState.isAuthenticated ? 0 : -1);
   const [selfWillAttend, setSelfWillAttend] = useState(undefined);
-  const [groupArray, setGroupArray] = useState([
-    {
-      name: 'Bennett Meares',
-      isInPersonAttendee: true,
-    }, {
-      name: 'David Gleaton',
-      isInPersonAttendee: true,
-    },
-  ]);
+  const [groupArray, setGroupArray] = useState([]);
+
+  const advanceRsvpPhase = () => setRsvpPhase(n => n+1);
 
   const handleResetSession = () => {
-    setIsPageReady(false);
     setIsInitialVisit(false);
     setRsvpPhase(appState.isAuthenticated ? 0 : -1);
     setSelfWillAttend(undefined);
@@ -39,16 +33,63 @@ export default function RSVP() {
     console.log('RESET THE SESSION')
   };
 
-  const advanceRsvpPhase = () => setRsvpPhase(n => n+1);
+  useEffect(() => {
+    appState.isAuthenticated && axios.get('/node/rsvp/self', {
+      withCredentials: true
+    }).then((res) => {
+      if(res.data) {
+        setSelfData(res.data.self || {});
+        setRsvpPhase(0);
+        setIsInitialVisit(!res.data.self?.rsvp_received);
+      } else {
+        console.log('No data was returned.');
+        setPageError('No data returned at /self call');
+      }
+    }).catch(e => {
+      const { status='', data='' } = e.response;
+      setPageError(`The /self call failed with an error code.   Error ${status}: ${data}`);
+      console.error('rsvp/self call failed.');
+      console.log(e);
+    });
+  }, [setSelfData, setRsvpPhase, appState.isAuthenticated]);
 
   useEffect(() => rsvpPhase === 1 && setTimeout(() => advanceRsvpPhase(), 2000), [rsvpPhase]);
   
-  const handleSelfConfirmButton = answer => {
+  const handleRegisterUserButton = answer => {
     setSelfWillAttend(answer);
     advanceRsvpPhase();
   };
 
-  const handleSubmitForm = e => {
+  const handleSelfConfirmButton = answer => {
+    setSelfWillAttend(answer);
+    
+    const requests = [
+      axios.post('/node/rsvp/self', {
+        id: selfData.id,
+        inPerson: answer,
+      }).then(res => {
+        console.log('Updated RSVP information for user ' + selfData.id);
+      }).catch(e => {
+        const { status='', data='' } = e.response;
+        setPageError(`The /self post call failed with an error code.   Error ${status}: ${data}`);
+        console.error('rsvp/self post call failed.');
+        console.log(e);
+      }),
+      axios.get('/node/rsvp/group?id=' + selfData?.id)
+        .then(res => {
+          setGroupArray(res.data?.group);
+        }).catch(e => {
+        const { status='', data='' } = e.response;
+        setPageError(`The /group call failed with an error code.   Error ${status}: ${data}`);
+        console.error('rsvp/group post call failed.');
+        console.log(e);
+      })
+    ];
+
+    Promise.all(requests).then(() => advanceRsvpPhase());
+  };
+
+  const handleSubmitGroupForm = e => {
     e.preventDefault();
 
     const formEntries = Array.from(e.target.elements).map(x => x.value);
@@ -57,34 +98,59 @@ export default function RSVP() {
 
     const attendanceUpdate = [];
     for(let i=0; i<formEntries.length; i++) {
-      attendanceUpdate.push({
-        name: formLabels[i],
-        status: formTranslations[formEntries[i]]
+      formTranslations[formEntries[i]] !== undefined && attendanceUpdate.push({
+        id: parseInt(formLabels[i]),
+        in_person: formTranslations[formEntries[i]]
       });
     }
 
     advanceRsvpPhase();
     console.log(attendanceUpdate);
-    // axios.post form data .... THEN advanceRSVPphase
-    setTimeout(() => advanceRsvpPhase(), 2000);
-  };
+    
+    axios.post('/node/rsvp/group', attendanceUpdate, {withCredentials: true})
+      .then(() => void advanceRsvpPhase())
+      .catch(e => {
+        const { status='', data='' } = e.response;
+        setPageError(`The /group call failed with an error code. Error ${status}: ${data}`);
+        console.error('rsvp/group post call failed.');
+        console.log(e);
+      });
+    };
 
   const BasicLoading = () => <p>loading your RSVP information...</p>;
 
-  if(appState.isAuthenticated) {
+  if(appState.isAuthenticated && !pageError) {
     return (
       <main className="RSVP">
-        {!isPageReady && <button onClick={() => setIsPageReady(true)}>Demo load</button>}
         <h2>Hello, {appState.name || appState.email}!</h2>
 
         {isInitialVisit ? <>
-          {!isPageReady ? <BasicLoading /> :
+          {!selfData ? <BasicLoading /> :
           <>
-            {rsvpPhase === 0 && <>
+            {rsvpPhase === 0 && (selfData.stream_only || !selfData.id ? <>
+              <article className="info">
+                <strong>Looks like you're not registered yet!</strong>
+                <p>Would you like to register? By doing so, you'll be able to watch the livestream of our wedding on the day of, plus we may contact you in the meantime if room for attendance in person opens up!</p>
+                <button 
+                  className="rsvpConfirm" 
+                  id="rsvpYes"
+                  onClick={() => handleRegisterUserButton(true)}
+                  >
+                  Sign me up!
+                </button>
+                <button 
+                  className="rsvpConfirm" 
+                  id="rsvpNo"
+                  onClick={() => handleRegisterUserButton(false)}
+                  >
+                  No, thanks
+                </button>
+              </article>
+            </> : <>
               <p>We found this RSVP information for you:</p>
               <article className="info">
                 <strong>You're on the list!</strong>
-                <p>Would you like to attend our wedding in person on <span className='no-break'>August 1, 2021</span> in Houston, Texas?</p>
+                <p>Will you be attending our wedding in person on <span className='no-break'>August 1, 2021</span> in Houston, Texas?</p>
                 <button 
                   className="rsvpConfirm" 
                   id="rsvpYes"
@@ -100,27 +166,35 @@ export default function RSVP() {
                   No, thanks
                 </button>
               </article>
-            </>}
+            </>)}
             {(rsvpPhase === 1 || rsvpPhase === 3) && <p>updating RSVP data...</p>}
             {rsvpPhase === 2 && <>
               <article className="info">
-                { selfWillAttend ? 
-                  <strong>Awesome! We look forward to seeing you!</strong> :
-                  <strong>Thank you for letting us know — we will miss you!</strong>
-                }
-                <p>Your RSVP response has been successfully recorded.</p>
-                { groupArray.length > 0 && <form id="attendanceGroupRegistration" onSubmit={handleSubmitForm}>
+                { !selfData.id ? <>
+                  { 
+                    // IF we update selfData with registration then this will never render.
+                    // we can just send users back when they get to rsvpPhase 2....
+                    // would be better than branching forms by a lot....
+                  }
+                </> : <>
+                  { selfWillAttend ? 
+                    <strong>Awesome! We look forward to seeing you!</strong> :
+                    <strong>Thank you for letting us know — we will miss you!</strong>
+                  }
+                  <p>Your RSVP response has been successfully recorded.</p>
+                </>}
+                { groupArray.length > 0 && <form id="attendanceGroupRegistration" onSubmit={handleSubmitGroupForm}>
                   <Alert variant='info'>
                     <p className="tight">We found these people who we expected to attend with you. Do you know if they are coming?</p>
                   </Alert>
                   <Table striped bordered>
                     <tbody>
-                      {groupArray.map(person => <tr key={person.name}>
-                        <td>{person.name}</td>
+                      {groupArray.map(person => <tr key={person.full_name}>
+                        <td>{person.full_name}</td>
                         <td>
-                          <Form.Control id={person.name} defaultValue={selfWillAttend ? "Y" : "N"} as='select' custom>
-                            <option value="Y">Yes, {person.name} will attend.</option>
-                            <option value="N">No, {person.name} will not attend.</option>
+                          <Form.Control id={person.id} defaultValue={selfWillAttend ? "Y" : "N"} as='select' custom>
+                            <option value="Y">Yes, {person.full_name} will attend.</option>
+                            <option value="N">No, {person.full_name} will not attend.</option>
                             <option value="X">I don't know.</option>
                           </Form.Control>
                         </td>
@@ -138,7 +212,7 @@ export default function RSVP() {
             </> }
           </>}
         </> : <>
-          { !isPageReady ? <BasicLoading /> :
+          { !selfData ? <BasicLoading /> :
             <>
             {rsvpPhase === 0 && <article className="info">
               Welcome back!
@@ -148,6 +222,8 @@ export default function RSVP() {
         </>}
       </main>
     );
+  } else if (pageError) {
+    return <p className="error-body">{pageError}</p>;
   } else {
     // replace with component!
     return <main className="login-gate"><RequireLogin /></main>;
