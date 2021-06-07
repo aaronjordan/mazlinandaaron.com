@@ -16,6 +16,7 @@ import Registry from './routes/Registry';
 import Livestream from './routes/Livestream';
 import Party from './routes/Party';
 import Photos from './routes/Photos';
+import Privacy from './routes/Privacy';
 import './App.scss';
 
 export const AppContext = React.createContext(null);
@@ -49,6 +50,7 @@ function App() {
             <Route path="/livestream" component={Livestream} />
             <Route path="/wedding-party" component={Party} />
             <Route path="/photos" component={Photos} />
+            <Route path="/privacy-policy" component={Privacy} />
           </Switch>
           </ImageContext.Provider>
           <Footer />
