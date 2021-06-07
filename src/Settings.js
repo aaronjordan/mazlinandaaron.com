@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useLocation, Redirect } from 'react-router-dom';
+import { useLocation, Redirect, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { AppContext } from './App';
 import { LOGIN_STATE_INIT, UPDATE_LOCATION } from './AppStateReducer';
@@ -84,6 +84,7 @@ const Settings = props => {
             <h4>Settings</h4>
             <ul>
               <LoginGroup />
+              <Link to="/privacy-policy">Privacy Policy <FontAwesomeIcon id="privacy-link" icon={faExternalLinkAlt} /></Link>
             </ul>
           </aside>
         }
