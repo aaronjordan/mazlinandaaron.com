@@ -55,6 +55,7 @@
   ul {
     list-style-type: none;
     padding-left: 0;
+    text-align: center;
   }
 
   .icon {
@@ -68,5 +69,9 @@
 
   .icon.open {
     transform: rotateZ(30deg);
+  }
+
+  #privacy-link {
+    margin-left: 12px;
   }
 }
