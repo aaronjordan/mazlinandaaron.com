@@ -84,7 +84,7 @@ const Settings = props => {
             <h4>Settings</h4>
             <ul>
               <LoginGroup />
-              <Link to="/privacy-policy">Privacy Policy <FontAwesomeIcon id="privacy-link" icon={faExternalLinkAlt} /></Link>
+              <Link to="/privacy-policy">Privacy Policy <FontAwesomeIcon id="privacy-link" icon={faExternalLinkAlt} size="sm"/></Link>
             </ul>
           </aside>
         }
