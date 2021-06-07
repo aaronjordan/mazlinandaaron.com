@@ -107,15 +107,19 @@ export default function RSVP() {
     advanceRsvpPhase();
     console.log(attendanceUpdate);
     
-    axios.post('/node/rsvp/group', attendanceUpdate, {withCredentials: true})
-      .then(() => void advanceRsvpPhase())
-      .catch(e => {
-        const { status='', data='' } = e.response;
-        setPageError(`The /group call failed with an error code. Error ${status}: ${data}`);
-        console.error('rsvp/group post call failed.');
-        console.log(e);
-      });
-    };
+    // submit form only if data set is not empty
+    if (attendanceUpdate.length) {
+      axios.post('/node/rsvp/group', attendanceUpdate, {withCredentials: true})
+        .then(() => void advanceRsvpPhase())
+        .catch(e => {
+          const { status='', data='' } = e.response;
+          setPageError(`The /group call failed with an error code. Error ${status}: ${data}`);
+          console.error('rsvp/group post call failed.');
+          console.log(e);
+        });
+    } else advanceRsvpPhase();
+
+  };
 
   const BasicLoading = () => <p>loading your RSVP information...</p>;
 
