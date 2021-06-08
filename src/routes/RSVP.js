@@ -53,6 +53,19 @@ export default function RSVP() {
     });
   }, [setSelfData, setRsvpPhase, appState.isAuthenticated]);
 
+  useEffect(() => {
+    !appState.isInitialVisit && rsvpPhase === 0 && axios.get('/node/rsvp/group')
+      .then(res => {
+        setGroupArray(res.data?.group);
+        console.log(res.data.group)
+      }).catch(e => {
+        const { status='', data='' } = e.response;
+        setPageError(`The /group call failed with an error code.   Error ${status}: ${data}`);
+        console.error('rsvp/group post call failed.');
+        console.log(e);
+    });
+  }, [appState, rsvpPhase]);
+
   useEffect(() => rsvpPhase === 1 && setTimeout(() => advanceRsvpPhase(), 2000), [rsvpPhase]);
   
   const handleRegisterUserButton = answer => {
@@ -129,106 +142,131 @@ export default function RSVP() {
         <h2>Hello, {appState.name || appState.email}!</h2>
 
         {isInitialVisit ? <>
-          {!selfData ? <BasicLoading /> :
-          <>
-            {rsvpPhase === 0 && (selfData.stream_only || !selfData.id ? <>
-              <article className="info">
-                <strong>Looks like you're not registered yet!</strong>
-                <p>Would you like to register? By doing so, you'll be able to watch the livestream of our wedding on the day of, plus we may contact you in the meantime if room for attendance in person opens up!</p>
-                <button 
-                  className="rsvpConfirm" 
-                  id="rsvpYes"
-                  onClick={() => handleRegisterUserButton(true)}
-                  >
-                  Sign me up!
-                </button>
-                <button 
-                  className="rsvpConfirm" 
-                  id="rsvpNo"
-                  onClick={() => handleRegisterUserButton(false)}
-                  >
-                  No, thanks
-                </button>
-              </article>
-            </> : <>
-              <p>We found this RSVP information for you:</p>
-              <article className="info">
-                <strong>You're on the list!</strong>
-                <p>Will you be attending our wedding in person on <span className='no-break'>August 1, 2021</span> in Houston, Texas?</p>
-                <button 
-                  className="rsvpConfirm primary" 
-                  id="rsvpYes"
-                  onClick={() => handleSelfConfirmButton(true)}
-                  >
-                  YES!
-                </button>
-                <button 
-                  className="rsvpConfirm secondary" 
-                  id="rsvpNo"
-                  onClick={() => handleSelfConfirmButton(false)}
-                  >
-                  No, thanks
-                </button>
-              </article>
-            </>)}
-            {(rsvpPhase === 1 || rsvpPhase === 3) && <p>updating RSVP data...</p>}
-            {rsvpPhase === 2 && <>
-              <article className="info">
-                { !selfData.id ? <>
-                  { 
-                    // IF we update selfData with registration then this will never render.
-                    // we can just send users back when they get to rsvpPhase 2....
-                    // would be better than branching forms by a lot....
+          {!selfData ? <BasicLoading /> : <>
+              {selfData.stream_only ? <>
+                <p>{selfData.first}, thank you for registering! We have saved your info.</p>
+                <p>If you received an invitation to attend our wedding in person, please let us know if you see this page.</p>
+              </> : <>
+              {rsvpPhase === 0 && (!selfData.id ? <>
+                <article className="info">
+                  <strong>Looks like you're not registered yet!</strong>
+                  <p>Would you like to register? By doing so, you'll be able to watch the livestream of our wedding, plus we may contact you in the meantime if room for attendance in person opens up!</p>
+                  <button 
+                    className="rsvpConfirm primary" 
+                    id="registerYes"
+                    onClick={() => handleRegisterUserButton(true)}
+                    >
+                    Sign me up!
+                  </button>
+                  <button 
+                    className="rsvpConfirm secondary" 
+                    id="registerNo"
+                    onClick={() => handleRegisterUserButton(false)}
+                    >
+                    No, thanks
+                  </button>
+                </article>
+              </> : <>
+                <p>We found this RSVP information for you:</p>
+                <article className="info">
+                  <strong>You're on the list!</strong>
+                  <p>Will you be attending our wedding in person on <span className='no-break'>August 1, 2021</span> in Houston, Texas?</p>
+                  <button 
+                    className="rsvpConfirm primary" 
+                    id="rsvpYes"
+                    onClick={() => handleSelfConfirmButton(true)}
+                    >
+                    YES!
+                  </button>
+                  <button 
+                    className="rsvpConfirm secondary" 
+                    id="rsvpNo"
+                    onClick={() => handleSelfConfirmButton(false)}
+                    >
+                    No, thanks
+                  </button>
+                </article>
+              </>)}
+              {(rsvpPhase === 1 || rsvpPhase === 3) && <p>updating RSVP data...</p>}
+              {rsvpPhase === 2 && <>
+                <article className="info">
+                  { !selfData.id ? <>
+                    { 
+                      // IF we update selfData with registration then this will never render.
+                      // we can just send users back when they get to rsvpPhase 2....
+                      // would be better than branching forms by a lot....
+                    }
+                  </> : <>
+                    { selfWillAttend ? 
+                      <strong>Awesome! We look forward to seeing you!</strong> :
+                      <strong>Thank you for letting us know — we will miss you!</strong>
+                    }
+                    <p>Your RSVP response has been successfully recorded.</p>
+                  </>}
+                  { groupArray.length > 0 && <form id="attendanceGroupRegistration" onSubmit={handleSubmitGroupForm}>
+                    <Alert variant='info'>
+                      <p className="tight">We found these people who we expected to attend with you. Do you know if they are coming?</p>
+                    </Alert>
+                    <Table striped bordered>
+                      <tbody>
+                        {groupArray.map(person => <tr key={person.full_name}>
+                          <td>{person.full_name}</td>
+                          <td>
+                            <Form.Control id={person.id} defaultValue={selfWillAttend ? "Y" : "N"} as='select' custom>
+                              <option value="Y">Yes, {person.full_name} will attend.</option>
+                              <option value="N">No, {person.full_name} will not attend.</option>
+                              <option value="X">I don't know.</option>
+                            </Form.Control>
+                          </td>
+                        </tr>)}
+                      </tbody>
+                    </Table>
+                    <button className="rsvpConfirm primary" type="submit">Submit</button>
+                  </form>}
+                  { groupArray.length === 0 && 
+                    <button className="rsvpConfirm primary" onClick={() => handleResetSession()}>View your submission</button>
                   }
-                </> : <>
-                  { selfWillAttend ? 
-                    <strong>Awesome! We look forward to seeing you!</strong> :
-                    <strong>Thank you for letting us know — we will miss you!</strong>
-                  }
-                  <p>Your RSVP response has been successfully recorded.</p>
-                </>}
-                { groupArray.length > 0 && <form id="attendanceGroupRegistration" onSubmit={handleSubmitGroupForm}>
-                  <Alert variant='info'>
-                    <p className="tight">We found these people who we expected to attend with you. Do you know if they are coming?</p>
-                  </Alert>
-                  <Table striped bordered>
-                    <tbody>
-                      {groupArray.map(person => <tr key={person.full_name}>
-                        <td>{person.full_name}</td>
-                        <td>
-                          <Form.Control id={person.id} defaultValue={selfWillAttend ? "Y" : "N"} as='select' custom>
-                            <option value="Y">Yes, {person.full_name} will attend.</option>
-                            <option value="N">No, {person.full_name} will not attend.</option>
-                            <option value="X">I don't know.</option>
-                          </Form.Control>
-                        </td>
-                      </tr>)}
-                    </tbody>
-                  </Table>
-                  <button className="rsvpConfirm primary" type="submit">Submit</button>
-                </form>}
-              </article>
+                </article>
+              </>}
+              {rsvpPhase === 4 && <>
+                <strong>Thank you for updating our records.</strong>
+                <p>The group RSVP response was successfully processed.</p>
+                <button className="rsvpConfirm primary" onClick={() => handleResetSession()}>View your submission</button>
+              </>}
             </>}
-            {rsvpPhase === 4 && <>
-              <strong>Thank you for updating our records.</strong>
-              <p>The group RSVP response was successfully processed.</p>
-              <button className="rsvpConfirm primary" onClick={() => handleResetSession()}>View your submission</button>
-            </> }
           </>}
         </> : <>
           { !selfData ? <BasicLoading /> :
-            <>
-            {rsvpPhase === 0 && <article className="info">
+            <article className="info">
               <p>Welcome back!</p>
-              <p>{'<< add dynamic confirmation info here for user + group >>'}</p>
-              <p>Need to change something? 
+              <p>Your group:</p>
+              <Table striped bordered>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>RSVP Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {groupArray.map(person => <tr key={person.full_name}>
+                    <td>{person.full_name}</td>
+                    <td>
+                      { (person.stream_only === 1 && 'Livestream attendee') ||
+                        (person.rsvp_received && person.in_person === 1 && 'Yes, coming') ||
+                        (person.rsvp_received && person.in_person === 0 && 'No, not coming') ||
+                        (!person.rsvp_received && 'RSVP not recorded') || ''
+                      }
+                    </td>
+                  </tr>)}
+                </tbody>
+              </Table>
+              <p>Need to change something? <br />
                 <span 
                   className="return-button"
                   onClick={() => setIsInitialVisit(true)}
                   >Click here to do that!</span>
               </p>
-            </article>}
-            </>
+            </article>
           }
         </>}
       </main>

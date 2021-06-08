@@ -20,7 +20,7 @@
     border: 1px solid var(--main-grey-trans);
     padding: 3px 12px;
     margin: 6px 12px;
-    width: 30%;
+    min-width: 30%;
     box-shadow: 0 0px 0 0 var(--main-grey);
   }
   
@@ -42,7 +42,6 @@
 
   .return-button {
     display: inline-block;
-    margin: 0 120px;
     text-decoration: underline;
     background-color: rgba(0,0,0,0);
 
