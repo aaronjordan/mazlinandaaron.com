@@ -1,5 +1,11 @@
 #visitHtx {
 
+  #bestWestern a#hotelPhone {
+    display: inline;
+    margin: 0;
+    width: unset;
+  }
+
   section {
     margin: 48px auto 72px;
   }
@@ -85,7 +91,6 @@
 
     a {
       display: inline-block;
-      margin: 0 auto;
       width: fit-content;
       margin-top: 18px;
     }
