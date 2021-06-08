@@ -53,6 +53,19 @@ export default function RSVP() {
     });
   }, [setSelfData, setRsvpPhase, appState.isAuthenticated]);
 
+  useEffect(() => {
+    !appState.isInitialVisit && rsvpPhase === 0 && axios.get('/node/rsvp/group')
+      .then(res => {
+        setGroupArray(res.data?.group);
+        console.log(res.data.group)
+      }).catch(e => {
+        const { status='', data='' } = e.response;
+        setPageError(`The /group call failed with an error code.   Error ${status}: ${data}`);
+        console.error('rsvp/group post call failed.');
+        console.log(e);
+    });
+  }, [appState, rsvpPhase]);
+
   useEffect(() => rsvpPhase === 1 && setTimeout(() => advanceRsvpPhase(), 2000), [rsvpPhase]);
   
   const handleRegisterUserButton = answer => {
@@ -210,6 +223,9 @@ export default function RSVP() {
                     </Table>
                     <button className="rsvpConfirm primary" type="submit">Submit</button>
                   </form>}
+                  { groupArray.length === 0 && 
+                    <button className="rsvpConfirm primary" onClick={() => handleResetSession()}>View your submission</button>
+                  }
                 </article>
               </>}
               {rsvpPhase === 4 && <>
@@ -221,18 +237,36 @@ export default function RSVP() {
           </>}
         </> : <>
           { !selfData ? <BasicLoading /> :
-            <>
-            {rsvpPhase === 0 && <article className="info">
+            <article className="info">
               <p>Welcome back!</p>
-              <p>{'<< add dynamic confirmation info here for user + group >>'}</p>
-              <p>Need to change something? 
+              <p>Your group:</p>
+              <Table striped bordered>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>RSVP Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {groupArray.map(person => <tr key={person.full_name}>
+                    <td>{person.full_name}</td>
+                    <td>
+                      { (person.stream_only === 1 && 'Livestream attendee') ||
+                        (person.rsvp_received && person.in_person === 1 && 'Yes, coming') ||
+                        (person.rsvp_received && person.in_person === 0 && 'No, not coming') ||
+                        (!person.rsvp_received && 'RSVP not recorded') || ''
+                      }
+                    </td>
+                  </tr>)}
+                </tbody>
+              </Table>
+              <p>Need to change something? <br />
                 <span 
                   className="return-button"
                   onClick={() => setIsInitialVisit(true)}
                   >Click here to do that!</span>
               </p>
-            </article>}
-            </>
+            </article>
           }
         </>}
       </main>

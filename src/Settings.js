@@ -60,8 +60,10 @@ const Settings = props => {
         }
       });
 
-      document.cookie='login_name=Aaron Jordan; Secure;'
-      document.cookie='login_email=jaaronjordan@gmail.com; Secure;'
+      const localLogin = require('./ENVLOCAL').CONSTANTS;
+      document.cookie=`login_name=${localLogin.name}; Secure;`
+      document.cookie=`login_email=${localLogin.email}; Secure;`
+      document.cookie=`login_id=${localLogin.login_id}; Secure;`
     }
 
   }, [dispatch]);
