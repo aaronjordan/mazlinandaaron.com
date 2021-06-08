@@ -51,19 +51,19 @@ const Settings = props => {
       });
     } else if (process.env.NODE_ENV === 'development') {
       // local
-      dispatch({
-        type: LOGIN_STATE_INIT,
-        payload: {
-          isAuthenticated: true,
-          email: 'jaaronjordan@gmail.com',
-          name: 'Aaron Jordan'
-        }
-      });
-
       const localLogin = require('./ENVLOCAL').CONSTANTS;
       document.cookie=`login_name=${localLogin.name}; Secure;`
       document.cookie=`login_email=${localLogin.email}; Secure;`
       document.cookie=`login_id=${localLogin.login_id}; Secure;`
+      
+      dispatch({
+        type: LOGIN_STATE_INIT,
+        payload: {
+          isAuthenticated: true,
+          email: localLogin.email,
+          name: localLogin.name
+        }
+      });
     }
 
   }, [dispatch]);
