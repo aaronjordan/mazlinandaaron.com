@@ -54,7 +54,8 @@ export default function RSVP() {
   }, [setSelfData, setRsvpPhase, appState.isAuthenticated]);
 
   useEffect(() => {
-    !appState.isInitialVisit && rsvpPhase === 0 && axios.get('/node/rsvp/group')
+    !appState.isInitialVisit && rsvpPhase === 0 && 
+    appState.isAuthenticated && axios.get('/node/rsvp/group')
       .then(res => {
         setGroupArray(res.data?.group);
         console.log(res.data.group)
