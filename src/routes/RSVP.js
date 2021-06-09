@@ -54,7 +54,7 @@ export default function RSVP() {
   }, [setSelfData, setRsvpPhase, appState.isAuthenticated]);
 
   useEffect(() => {
-    !appState.isInitialVisit && rsvpPhase === 0 && 
+    !isInitialVisit && rsvpPhase === 0 && 
     appState.isAuthenticated && axios.get('/node/rsvp/group')
       .then(res => {
         setGroupArray(res.data?.group);
@@ -65,12 +65,12 @@ export default function RSVP() {
         console.error('rsvp/group post call failed.');
         console.log(e);
     });
-  }, [appState, rsvpPhase]);
+  }, [appState, rsvpPhase, isInitialVisit]);
   
   const handleRegisterUserButton = answer => {
     advanceRsvpPhase();
     setSelfWillAttend(answer);
-    
+
     if(answer) {
       axios.get('/node/rsvp/register')
         .then(()=>advanceRsvpPhase());
