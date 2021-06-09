@@ -66,15 +66,21 @@ export default function RSVP() {
         console.log(e);
     });
   }, [appState, rsvpPhase]);
-
-  useEffect(() => rsvpPhase === 1 && setTimeout(() => advanceRsvpPhase(), 2000), [rsvpPhase]);
   
   const handleRegisterUserButton = answer => {
-    setSelfWillAttend(answer);
     advanceRsvpPhase();
+    setSelfWillAttend(answer);
+    
+    if(answer) {
+      axios.get('/node/rsvp/register')
+        .then(()=>advanceRsvpPhase());
+    } else {
+      advanceRsvpPhase();
+    }
   };
 
   const handleSelfConfirmButton = answer => {
+    advanceRsvpPhase();
     setSelfWillAttend(answer);
     
     const requests = [
@@ -100,7 +106,10 @@ export default function RSVP() {
       })
     ];
 
-    Promise.all(requests).then(() => advanceRsvpPhase());
+    Promise.all(requests).then(() => {
+      console.log(requests)
+      advanceRsvpPhase()
+    });
   };
 
   const handleSubmitGroupForm = e => {
@@ -156,6 +165,7 @@ export default function RSVP() {
                     className="rsvpConfirm primary" 
                     id="registerYes"
                     onClick={() => handleRegisterUserButton(true)}
+                    disabled={selfWillAttend || false}
                     >
                     Sign me up!
                   </button>
