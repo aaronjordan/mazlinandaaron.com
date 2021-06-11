@@ -23,7 +23,7 @@ const Privacy = () => {
       <h2 id="data-sharing">Data Sharing</h2>
       <p>We do not share personal data collected on our website with any third-party services. We do accept personal data from third-party sources to enable logging into our website. </p>
       <h2 id="use-of-cookies">Use of Cookies</h2>
-      <p>We use cookies on our website for a simple purposes:</p>
+      <p>We use cookies on our website for a simple purpose:</p>
       <ul>
       <li><strong>Authentication</strong>: Cookies are used to establish and remember a user&#39;s identity on the application&#39;s servers. </li>
       </ul>

@@ -24,3 +24,4 @@ yarn-error.log*
 
 src/img/compressed
 supplemental-resources/
+src/ENVLOCAL.js

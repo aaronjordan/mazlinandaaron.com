@@ -24,26 +24,30 @@
     transform: translateY(-40px);
     width: 300px;
     text-align: left;
-
+    
     button.close {
       position: absolute;
       top: 6px; right: 12px;
       font-size: 28px;
       padding: 6px;
     }
-
+    
     .login-group {
       margin-bottom: 24px;
+      div {
+        margin: 6px 0;
+      }
     }
-
+    
     h4 {
       text-align: center;
       margin: 0 auto 12px;
       padding-bottom: 6px;
       border-bottom: 1px solid var(--main-black);
     }
-
+    
     li {
+      text-align: center;
       margin-top: 12px;
     }
   }
@@ -51,6 +55,7 @@
   ul {
     list-style-type: none;
     padding-left: 0;
+    text-align: center;
   }
 
   .icon {
@@ -64,5 +69,9 @@
 
   .icon.open {
     transform: rotateZ(30deg);
+  }
+
+  #privacy-link {
+    margin-left: 12px;
   }
 }

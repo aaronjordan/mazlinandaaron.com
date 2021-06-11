@@ -56,8 +56,8 @@ export default function Visiting() {
               alt="best western hotel, downtown houston"/>
           </div>
           <p>
-            We have a block of rooms available at the Best Western Plus in downtown Houston. The hotel is a five minute drive away from our wedding venue. A discount code should be available here soon, but if you'd like to book now, you may call the hotel and ask for the Jordan wedding.
-            <a href="https://www.bestwestern.com/en_US/book/hotels-in-houston/best-western-plus-downtown-inn-suites/propertyCode.44498.html">Click here to check out the hotel.</a>
+            <span>We have a block of rooms available at the Best Western Plus in downtown Houston. The hotel is a five minute drive away from our wedding venue. You can follow the link below or call the hotel (<a id="hotelPhone" href="tel:7135717733">713-571-7733</a>) to book at our group rate.</span>
+            <a href="https://www.bestwestern.com/en_US/book/hotel-rooms.44498.html?groupId=4R5VD3W5">Click here to check out the hotel!</a>
           </p>
         </section>
         <section id="otherHotels">
@@ -90,7 +90,7 @@ export default function Visiting() {
             />
           <ItemCard 
             imgLabel="galveston"
-            title="Glaveston Beach"
+            title="Galveston Beach"
             />
           <ItemCard 
             imgLabel="baybrookmall"
@@ -116,10 +116,6 @@ export default function Visiting() {
           <ItemCard 
             imgLabel="tinys"
             title="Tiny’s Milk and Cookies"
-            />
-          <ItemCard 
-            imgLabel="chuys"
-            title="Chuy's"
             />
         </section>
       </article>

@@ -1,0 +1,64 @@
+.RSVP {
+  text-align: center;
+
+  .info {
+    margin: 24px auto;
+    max-width: 550px;
+    background-color: white;
+    padding: 36px 24px;
+    border: 1px solid var(--main-grey-trans);
+    box-shadow: 0 2px 18px -12px var(--main-grey);
+  }
+
+  strong {
+    font-size: 1.4rem;
+  }
+
+  button.rsvpConfirm {
+    font-size: 1rem;
+    background-color: white;
+    border: 1px solid var(--main-grey-trans);
+    padding: 3px 12px;
+    margin: 6px 12px;
+    min-width: 30%;
+    box-shadow: 0 0px 0 0 var(--main-grey);
+  }
+  
+  button:hover {
+    &.primary {
+      background-color: var(--window-pink);
+      box-shadow: 0 0px 16px -12px var(--main-grey);
+    }
+
+    &.secondary {
+      background-color: var(--main-white);
+      box-shadow: 0 0px 16px -12px var(--main-grey);
+    }
+  }
+
+  td {
+    line-height: 2.5;
+  }
+
+  .return-button {
+    display: inline-block;
+    text-decoration: underline;
+    background-color: rgba(0,0,0,0);
+
+    &:hover {
+      color: black;
+      cursor: pointer;
+      background-color:var(--window-pink);
+      box-shadow: 0 0 0 6px var(--window-pink);
+    }
+  }
+}
+
+@media only screen and (max-width: 640px) {
+
+  .RSVP button.rsvpConfirm {
+    min-width: 200px;
+
+  }
+
+}

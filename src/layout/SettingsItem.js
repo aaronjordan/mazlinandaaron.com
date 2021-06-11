@@ -1,6 +1,10 @@
 import React from 'react';
-import { AppContext } from '../App';
+// import { AppContext } from '../App';
 
+/**
+ * This should become a selection of basic settings items that read/write to localstorage with user preferences
+ * Might also provide a cookie settings link
+ */
 const SettingsItem = props => {
   // this will be needed later
   // const [appState, dispatch] = React.useContext(AppContext);
