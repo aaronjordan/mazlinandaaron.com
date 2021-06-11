@@ -33,6 +33,16 @@ export default function RSVP() {
     console.log('RESET THE SESSION')
   };
 
+  const skipEnrollIfExists = async () => {
+    axios.get('/node/rsvp/register')
+      .then((res) => {
+        if(res.data?.result === 'found') {
+          console.log('user was found')
+          setRsvpPhase(2);
+        }
+      });
+  };
+
   useEffect(() => {
     appState.isAuthenticated && axios.get('/node/rsvp/self', {
       withCredentials: true
@@ -41,12 +51,14 @@ export default function RSVP() {
         setSelfData(res.data.self || {});
         setRsvpPhase(0);
         setIsInitialVisit(!res.data.self?.rsvp_received);
+        // if no user info, check if user already expressed interest
+        !res.data.self?.id && skipEnrollIfExists(); 
       } else {
         console.log('No data was returned.');
         setPageError('No data returned at /self call');
       }
     }).catch(e => {
-      const { status='', data='' } = e.response;
+      const { status='', data='' } = e;
       setPageError(`The /self call failed with an error code.   Error ${status}: ${data}`);
       console.error('rsvp/self call failed.');
       console.log(e);
@@ -72,7 +84,7 @@ export default function RSVP() {
     setSelfWillAttend(answer);
 
     if(answer) {
-      axios.get('/node/rsvp/register')
+      axios.get('/node/rsvp/register?create=true')
         .then(()=>advanceRsvpPhase());
     } else {
       advanceRsvpPhase();
@@ -97,7 +109,7 @@ export default function RSVP() {
       }),
       axios.get('/node/rsvp/group?id=' + selfData?.id)
         .then(res => {
-          setGroupArray(res.data?.group);
+          Array.isArray(res.data?.group) && setGroupArray(res.data.group.filter(p => !p.stream_only));
         }).catch(e => {
         const { status='', data='' } = e.response;
         setPageError(`The /group call failed with an error code.   Error ${status}: ${data}`);
@@ -114,6 +126,7 @@ export default function RSVP() {
 
   const handleSubmitGroupForm = e => {
     e.preventDefault();
+    advanceRsvpPhase();
 
     const formEntries = Array.from(e.target.elements).map(x => x.value);
     const formLabels = Array.from(e.target.elements).map(x => x.id);
@@ -126,9 +139,6 @@ export default function RSVP() {
         in_person: formTranslations[formEntries[i]]
       });
     }
-
-    advanceRsvpPhase();
-    console.log(attendanceUpdate);
     
     // submit form only if data set is not empty
     if (attendanceUpdate.length) {
@@ -153,10 +163,10 @@ export default function RSVP() {
 
         {isInitialVisit ? <>
           {!selfData ? <BasicLoading /> : <>
-              {selfData.stream_only ? <>
-                <p>{selfData.first}, thank you for registering! We have saved your info.</p>
+              {selfData.stream_only ? <div className="info decline-message">
+                <p>{selfData.first}, thank you for registering! We have saved your info.<br />We hope that you will enjoy the livestream of our big day on this website on August 1.</p>
                 <p>If you received an invitation to attend our wedding in person, please let us know if you see this page.</p>
-              </> : <>
+              </div> : <>
               {rsvpPhase === 0 && (!selfData.id ? <>
                 <article className="info">
                   <strong>Looks like you're not registered yet!</strong>
@@ -202,10 +212,9 @@ export default function RSVP() {
               {rsvpPhase === 2 && <>
                 <article className="info">
                   { !selfData.id ? <>
-                    { 
-                      // IF we update selfData with registration then this will never render.
-                      // we can just send users back when they get to rsvpPhase 2....
-                      // would be better than branching forms by a lot....
+                    { selfWillAttend ? 
+                      <p>We received your information and will be in touch if space opens up!</p> : 
+                      <p>Understood! Feel free to return if you change your mind.</p>
                     }
                   </> : <>
                     { selfWillAttend ? 
@@ -234,7 +243,7 @@ export default function RSVP() {
                     </Table>
                     <button className="rsvpConfirm primary" type="submit">Submit</button>
                   </form>}
-                  { groupArray.length === 0 && 
+                  { groupArray.length === 0 && selfData.id &&
                     <button className="rsvpConfirm primary" onClick={() => handleResetSession()}>View your submission</button>
                   }
                 </article>
