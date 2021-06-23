@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import { useLocation, Redirect, Link } from 'react-router-dom';
+import { useLocation, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 import { AppContext } from './App';
 import { LOGIN_STATE_INIT, UPDATE_LOCATION } from './AppStateReducer';
 import { readCookies } from './Helpers';
-// import SettingsItem from './layout/SettingsItem';
+import { AdminLinkButton } from './routes/AdminHub';
 import { LoginGroup } from './layout/LoginButton';
 import './Settings.scss';
 
 const Settings = props => {
-  const [appState, dispatch] = React.useContext(AppContext);
+  const dispatch = React.useContext(AppContext)[1];
   const [isOpen, setIsOpen] = useState(false);
   const [redirectRoute, setRedirectRoute] = useState(null);
   const currentRoute = useLocation();
@@ -68,8 +68,6 @@ const Settings = props => {
 
   }, [dispatch]);
   
-  useEffect(() => console.log('%c New appstate! ', 'background-color:cyan; color: black;', appState), [appState]);
-
   useEffect(() => {
     !sessionStorage.getItem('isGettingAuth') && dispatch({type: UPDATE_LOCATION, payload: currentRoute.pathname});
   }, [currentRoute, dispatch]);
@@ -86,7 +84,7 @@ const Settings = props => {
             <h4>Settings</h4>
             <ul>
               <LoginGroup />
-              <Link to="/privacy-policy">Privacy Policy <FontAwesomeIcon id="privacy-link" icon={faExternalLinkAlt} size="sm"/></Link>
+              <AdminLinkButton />
             </ul>
           </aside>
         }

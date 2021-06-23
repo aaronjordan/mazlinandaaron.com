@@ -17,6 +17,7 @@ import Livestream from './routes/Livestream';
 import Party from './routes/Party';
 import Photos from './routes/Photos';
 import Privacy from './routes/Privacy';
+import AdminPanel from './routes/AdminHub';
 import './App.scss';
 
 export const AppContext = React.createContext(null);
@@ -51,6 +52,7 @@ function App() {
             <Route path="/wedding-party" component={Party} />
             <Route path="/photos" component={Photos} />
             <Route path="/privacy-policy" component={Privacy} />
+            <Route exact path="/admin-panel" component={AdminPanel} />
           </Switch>
           </ImageContext.Provider>
           <Footer />
