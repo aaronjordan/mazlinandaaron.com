@@ -1,0 +1,60 @@
+main.admin-panel {
+  margin: 24px auto;
+  background-color: white;
+  padding: 36px 0;
+  border: 1px solid var(--main-grey-trans);
+  box-shadow: 0 2px 18px -12px var(--main-grey);
+  overflow: scroll;
+
+  a {
+    box-shadow: none;
+    transition-duration: 0.2s;
+    &:hover {
+      background-color: rgba(0,0,0,0);
+    }
+  }
+
+  nav {
+    justify-content: space-evenly;
+    min-width: 998px;
+  }
+
+  .nav-link.active {
+    background-color: var(--window-orange);
+    border-bottom: 1px solid #fff0de;
+  }
+
+  .tab-content {
+    min-width: 998px;
+    width: 998px;
+  }
+
+  p {
+    margin: 64px;
+    text-align: center;
+  }
+
+  table {
+    box-shadow: var(--main-grey) 0 0 21px -18px;
+  }
+
+  th {
+    padding-top: 20px;
+    background-color: var(--window-orange);
+    border-bottom: 1px solid var(--main-grey-trans);
+  }
+
+  td.name {
+    font-weight: 700;
+    font-size: 15pt;
+    width: 27%;
+  }
+
+  td {
+    font-size: 12pt;
+  }
+
+  td.addr {
+    font-size: 11pt;
+  }
+}
