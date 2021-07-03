@@ -1,9 +1,27 @@
 import React from 'react';
 
+import './Livestream.scss';
+
 export default function Livestream() {
   return (
-    <main>
-      The Livestream tab is still being built! Please check back here later for updates.
+    <main className="stream">
+      <iframe 
+        className="videoContainer"
+        src="https://live.mazlinandaaron.com/embed/video"
+        title="Mazlin and Aaron Wedding Stream"
+        referrerPolicy="origin"
+        scrolling="no"
+        allowFullScreen>
+      </iframe>
+      {/* 
+      // gotta enable websockets to make this work.
+      <iframe
+        className="videoContainer"
+        src="http://live.mazlinandaaron.com/embed/chat"
+        title="Mazlin and Aaron Wedding Stream Chat"
+        referrerPolicy="origin"
+        scrolling="no">
+      </iframe> */}
     </main>
   )
 }
