@@ -18,7 +18,7 @@ export default function Countdown(props) {
     default:
       return (
         <div className="countdownComponent">
-          <p className="center"><span>{generateDays()}</span> days until our wedding.</p>
+          <p className="center"><span>{generateDays()}</span> days until the Jordan wedding.</p>
           <p className="center">August 1, 2021</p>
         </div>
       );
