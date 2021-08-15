@@ -48,7 +48,7 @@ export const Home = () => {
                     <li>Groomsman, David Gleaton</li>
                     <li>Groomsman, Ben Hewes</li>
                     <li>Best Man, Bennett Meares</li>
-                    <li>Bridesmaid, Kylie Griga</li>
+                    <li>Bridesmaid, Kylie Grigar</li>
                     <li>Bridesmaid, Ashton Maddox</li>
                     <li>Bridesmaid, Hope King</li>
                     <li>Man of Honor, Thomas Reed Massey</li>
