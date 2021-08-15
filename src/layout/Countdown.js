@@ -12,13 +12,13 @@ export default function Countdown(props) {
   switch (props.type) {
 
     case 'basic':
-      return <>{generateDays(now)}</>;
+      return <>{-1*generateDays(now)}</>;
 
     case 'fancy':
     default:
       return (
         <div className="countdownComponent">
-          <p className="center"><span>{generateDays(now)}</span> days until the Jordan wedding.</p>
+          <p className="center"><span>{-1*generateDays(now)}</span> days since the Jordan wedding.</p>
           <p className="center">August 1, 2021</p>
         </div>
       );

@@ -10,14 +10,15 @@ export default function Livestream() {
   if (appState.isAuthenticated) {
     return (
       <main className="stream">
-        <iframe 
+        <p>The stream is over! A replay may be made available here later.</p>
+        {/*<iframe 
           className="videoContainer"
           src="https://live.mazlinandaaron.com/embed/video"
           title="Mazlin and Aaron Wedding Stream"
           referrerPolicy="origin"
           scrolling="no"
           allowFullScreen>
-        </iframe>
+        </iframe>*/}
       </main>
     );
   } else {

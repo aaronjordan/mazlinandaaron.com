@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import {Table} from 'react-bootstrap';
-import Countdown, { generateDays, getTime } from '../layout/Countdown';
+import Countdown from '../layout/Countdown';
 import FlexBorderContainer from '../layout/FlexBorderContainer';
 import AdaptiveImg from '../AdaptiveImg';
 
 import './Home.scss';
 
 export const Home = () => {
-  const isWeddingDay = generateDays(getTime()) <= 6;
-  const [showStories, setShowStories] = useState(!isWeddingDay);
+  // const isWeddingDay = generateDays(getTime()) <= 6;
+  const [showStories, setShowStories] = useState(true);
 
   return (
     <main className="home">
@@ -74,8 +74,8 @@ export const Home = () => {
           </tbody>
         </Table>
       </section>
-      <section className="body-content" data-expanded={showStories} onClick={() => setShowStories(x => !x)}>
-        <p className="center">Thank you to Hinge and Taylor Swift for making all of this happen. <span>Keep reading to find out more →</span></p>
+      <section className="body-content" data-expanded={showStories} /*onClick={() => setShowStories(x => !x)}*/>
+        <p className="center">Thank you to Hinge and Taylor Swift for making all of this happen.</p>
         <FlexBorderContainer><h4>Mazlin’s story</h4></FlexBorderContainer>
         <div className="text-content maz">
           <p>It’s crazy to think back to how we first met because it was on a dating app in the middle of the pandemic. I had been living in Austin only for a few months and had made some amazing connections at a local church. To be completely honest, I hated dating apps and only joined because my friends said I should.</p>
@@ -104,7 +104,7 @@ export const Home = () => {
           <p>In reality, we had a beautiful date on the 24th. Over dinner at the place we went on our first date, I told Mazlin the story of how so many pieces fell through. We had some great hot chicken. Afterward, we went downtown to Butler Park, an alternative to Zilker that I had become quite fond of. To my delight, as we walked up the hill in the park, there were a handful of photographers. I, of course, had asked one to be there, but Mazlin was watching with great suspicion every person with a camera.</p>
           <p>Near the top of that hill, we stopped on the path. I told Mazlin very honestly that I could drag out my speech with a million things, but I’d already written and given her the words. Any attempt I made to articulate how I felt in that moment, I believed, wouldn’t compare to the pages and pages of writing in which I resolved to make it to that moment and many after. I told her that I loved her and — to fulfill the line item on the date card — that I would always be overdramatic and true to her. I asked her if she would marry me, to which she said “Yes, of course”, then out of sheer excitement, she gave me a good shove away in the left arm. (She tends to punch when overwhelmed with happy emotions. It’s cute.) Shortly afterward, we went to her aunt’s house and celebrated with many of our friends and her family. It was almost surreal having just about everyone I know from Texas in one place.</p>
           <p>That day was perfect, and given the choice of any idea I ever had about this proposal, I would take this rained-out-rescheduled-fallback plan over any of the others. Everything ran smoothly, I had great help to make it happen, Mazlin loved her ring, we had excellent weather for photos, and I got the chance to promise to marry this delightful person who, out of thin air, has made my life so much more vivid, colorful, and gratifying.</p>
-          <p>Today, I’m counting down the <Countdown type="basic" /> days, excited for August and everything after, certain beyond any doubt that Mazlin Massey is the someone that I’ve been hoping for for a long time.</p>
+          <p>Today, I've thoroughly enjoyed the <Countdown type="basic" /> days, and am certain beyond any doubt that Mazlin Massey is the someone that I’ve been hoping for for a long time.</p>
           <p className="ellipsis">• • •</p>
         </div>
       </section>
