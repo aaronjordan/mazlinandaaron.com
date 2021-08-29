@@ -5,7 +5,7 @@ const IMAGE_BASE_URL =  '/media/image';
 const ALLOW_CORS = Object.freeze(process.env.NODE_ENV === 'development' ? {headers: {'Access-Control-Allow-Origin': '*'}} : {});
 export const QUALITY_GRADES = Object.freeze(['lq', 'mq', 'hq']);
 const AUTO_LOAD_TYPE = QUALITY_GRADES[0];
-export const NO_PREFETCH_PREFIX = 'p0'; // images beginning with this code do not block the initial application paint
+export const NO_PREFETCH_PREFIX = ['w0', 'e0', 'p0']; // images beginning with this code do not block the initial application paint
 
 /**
  * getImageDictionary()
@@ -50,6 +50,7 @@ export const ImageLoader = props => {
   const initPrefixRef = useRef(null);
 
   const getHigherQuality = (label, preferredQuality) => {
+    console.log('getting label: ', label)
     const currentAction = (resolve, reject) => {
       if (!library.dictionary || library.qualityTable?.[label] === preferredQuality) {
         resolve(false);
@@ -95,10 +96,13 @@ export const ImageLoader = props => {
   updateRef.current = getHigherQuality;
 
   const initAllWithPrefix = async (prefix) => {
-     const labels = Object.entries(library.dictionary).filter(prop => prop?.[0]?.startsWith(prefix));
-     const requests = labels.map(prop => getHigherQuality(prop[0], 'lq'));
-     await Promise.all(requests);
-     return true;
+    console.log('getting prefix of ', prefix);
+    const labels = Object.entries(library.dictionary).filter(prop => prop?.[0]?.startsWith(prefix));
+    console.log('react says:', labels)
+    const requests = labels.map(prop => getHigherQuality(prop[0], 'lq'));
+    console.log('made these req: ', requests)
+    await Promise.all(requests);
+    return true;
   }
 
   initPrefixRef.current = initAllWithPrefix;
@@ -129,7 +133,11 @@ export const ImageLoader = props => {
     if(Object.keys(dict).length > 0) {
       const imgRequests = Object.entries(dict).map(([key, val]) => {
         // do not preload images for the gallery page
-        if(key.startsWith(NO_PREFETCH_PREFIX)) return Promise.resolve(true);
+        if(key.startsWith(NO_PREFETCH_PREFIX[0])
+        || key.startsWith(NO_PREFETCH_PREFIX[1])
+        || key.startsWith(NO_PREFETCH_PREFIX[2])) {
+          return Promise.resolve(true);
+        }
 
         const thisReq = val[AUTO_LOAD_TYPE] && axios.get(val[AUTO_LOAD_TYPE], {...ALLOW_CORS, responseType: 'blob', validateStatus: null});
         thisReq?.then(res => {
