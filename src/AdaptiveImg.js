@@ -29,9 +29,10 @@ const AdaptiveImg = props => {
   }, [props.label, ImageLibrary]);
 
   useEffect(() => {
-    if(props.label && !updateRunning.current && typeof ImageLibrary.updateImage == "function") { 
+    if(props.label && imgBlob && !updateRunning.current && typeof ImageLibrary.updateImage == "function") { 
       updateRunning.current = true;
       if (QUALITY_GRADES.indexOf(imgQuality) < QUALITY_GRADES.indexOf(targetQuality)) {
+        console.log('update to label ', props.label)
         // get higher quality image and swap
         ImageLibrary.updateImage(props.label, targetQuality)
           .then(() => {

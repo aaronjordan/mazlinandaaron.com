@@ -45,9 +45,11 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/upcoming" component={Upcoming} />
+            {/*
             <Route path="/rsvp" component={Rsvp} />
             <Route path="/visiting-htx" component={Visiting} />
             <Route path="/registry" component={Registry} />
+            */}
             <Route path="/livestream" component={Livestream} />
             <Route path="/wedding-party" component={Party} />
             <Route path="/photos" component={Photos} />
