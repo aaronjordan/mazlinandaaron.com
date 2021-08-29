@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {Table} from 'react-bootstrap';
 import Countdown from '../layout/Countdown';
 import FlexBorderContainer from '../layout/FlexBorderContainer';
@@ -8,7 +8,7 @@ import './Home.scss';
 
 export const Home = () => {
   // const isWeddingDay = generateDays(getTime()) <= 6;
-  const [showStories, setShowStories] = useState(true);
+  const showStories = true;
 
   return (
     <main className="home">
