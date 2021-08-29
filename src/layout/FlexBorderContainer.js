@@ -9,7 +9,8 @@ export default function FlexBorderContainer(props) {
     props.as || 'div',
     {
       className: rootClass,
-      id: props.id || undefined, 
+      id: props.id,
+      onClick: props.onClick,
     },
     <>
       <div className={`flex-border fb-left ${align==='left' ? 'fb-hide' : ''}`} />
